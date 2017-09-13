@@ -1,5 +1,7 @@
 ## 最新前端面试题
 
+原文地址：https://github.com/hawx1993/Front-end-Interview-questions ， 欢迎star
+
 ### 职业规划
 
 
@@ -14,10 +16,10 @@
 分享前端知识/开源项目
 一专多长
 
-想成为优秀的前端工程师，首先在专业技能领域必不可少，其次在团队贡献、业务思索、价值判断上也有要求。这三方面能决定你的专业技能能够为公司产出多大的价值，这是微店教给我的一个最重要的认知方式 -- 以价值驱动，让结果说话。
+想成为优秀的前端工程师，首先在专业技能领域必不可少，其次在团队贡献、业务思索、价值判断上也有要求。这三方面能决定你的专业技能能够为公司产出多大的价值。
 
 我觉得程序员最核心的竞争力是学习力和责任。
-学习力的源泉就是好奇心，也就是对新知识的渴求，以及对探索未知的冲动。
+学习能力的源泉就是好奇心，也就是对新知识的渴求，以及对探索未知的冲动。
 
 ### 你希望加入一个什么样的团队
 
@@ -32,8 +34,11 @@
 ### 最后你有什么要问我的吗
 
 1.可以问一下公司具体的情况，比如我即将加入的部门的主要业务
+
 2.问一下具体工作情况，比如需要做哪些内容
+
 3.公司的氛围和公司的文化
+
 4.贵司对这项职务的工作内容和期望目标
 
 ### 性能优化
@@ -97,9 +102,11 @@ loader用于加载某些资源文件，因为webpack本身只能打包CommonJS�
 plugin用于扩展webpack的功能，直接作用于webpack，loader只专注于转换文件，而plugin不仅局限于资源加载
 
 Loader只能处理单一文件的输入输出，而Plugin则可以对整个打包过程获得更多的灵活性，譬如 ExtractTextPlugin，它可以将所有文件中的css剥离到一个独立的文件中，这样样式就不会随着组件加载而加载了。
+
 #### 什么是chunk
 
 Webpack提供一个功能可以拆分模块，每一个模块称为chunk，这个功能叫做Code Splitting。你可以在你的代码库中定义分割点，调用require.ensure，实现按需加载
+![](chunks.jpeg)
 
 
 #### 如何开发一个loader，原理是啥
@@ -122,7 +129,6 @@ webpack打包，最基本的实现方式，是将所有的模块代码放到一�
     __webpack_require__(2);
     console.log('Hello, world!');
 
-
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
@@ -140,7 +146,8 @@ webpack打包，最基本的实现方式，是将所有的模块代码放到一�
 /***/ }
 /******/ ]);
 ```
-可以发现入口entry.js的代码是放在数组索引0的位置，其它a.js和b.js的代码分别放在了数组索引1和2的位置，而webpack引用的时候，主要通过__webpack_require_的方法引用不同索引的模块。
+可以发现入口entry.js的代码是放在数组索引0的位置，其它a.js和b.js的代码分别放在了数组索引1和2的位置，而webpack引用的时候，主要通过`__webpack_require__`的方法引用不同索引的模块。
+
 #### webpack和gulp的区别
 
 webpack是一种模块化打包工具，主要用于模块化方案，预编译模块的方案；gulp是工具链、构建工具，可以配合各种插件做js压缩，css压缩，less编译 替代手工实现自动化工作。
@@ -155,7 +162,8 @@ Compiler在开始打包时就进行实例化，实例对象里面装着与打包
 compilation对象，它继承于compiler，所以能拿到一切compiler的内容。Compilation表示有关模块资源，已编译资源，Compilation在每次文件变化重新打包时都进行一次实例化
 
 apply方法：当安装这个插件的时候，这个apply方法就会被webpack compiler调用。
-```
+
+```javascript
 function HelloWorldPlugin(options) {
   // Setup the plugin instance with options...
 }
@@ -185,7 +193,7 @@ module.exports = HelloWorldPlugin;
 
 input 的placeholder会出现文本位置偏上的情况：PC端设置line-height等于height能够对齐，而移动端仍然是偏上，解决是设置line-height：normal
 
-4. zepto点击穿透问题
+4.zepto点击穿透问题
 
 引入fastclick解决；event.preventDefault
 
@@ -193,27 +201,26 @@ input 的placeholder会出现文本位置偏上的情况：PC端设置line-heigh
 ```
 Element.scrollIntoViewIfNeeded(opt_center)
 ```
-如果有碰到兼容性的问题，我相信我也能很快解决的，因为其他人一定也碰到了，此时上网搜索应该是最佳最快速的选择
-
-
 
 ### react和vue的区别
 
 相同点：
-1.都支持服务端渲染
-2. 都有Virtual DOM，组件化开发，通过props参数进行父子组件数据的传递，都实现webComponents规范
-3. 数据驱动视图
-4. 都有支持native的方案，React的React native，Vue的weex
+
+- 都支持服务端渲染
+- 都有Virtual DOM，组件化开发，通过props参数进行父子组件数据的传递，都实现webComponents规范
+- 数据驱动视图
+- 都有支持native的方案，React的React native，Vue的weex
 
 不同点：
-1.React严格上只针对MVC的view层，Vue则是MVVM模式
-2.virtual DOM 不一样
+
+- React严格上只针对MVC的view层，Vue则是MVVM模式
+- virtual DOM 不一样
 vue会跟踪每一个组件的依赖关系，不需要重新渲染整个组件树。而对于React而言，每当应用的状态被改变时，全部子组件都会重新渲染。当然，这可以通过shouldComponentUpdate这个生命周期方法来进行控制，
-3.组件写法不一样
+- 组件写法不一样
 React 推荐的做法是 JSX + inline style，也就是把 HTML 和 CSS 全都写进 JavaScript 了，即”all in js”
 Vue 推荐的是使用 `webpack + vue-loader` 的单文件组件格式，即html,css,js写在同一个文件；
-4.数据绑定：Vue有实现了双向数据绑定，React数据流动是单向的
-5.state对象在react应用中是不可变的，需要使用setState方法更新状态；在Vue中，state对象并不是必须的，数据由data属性在Vue对象中进行管理。
+- 数据绑定：Vue有实现了双向数据绑定，React数据流动是单向的
+- state对象在react应用中是不可变的，需要使用setState方法更新状态；在Vue中，state对象并不是必须的，数据由data属性在Vue对象中进行管理。
 
 
 
@@ -224,16 +231,18 @@ Vue 推荐的是使用 `webpack + vue-loader` 的单文件组件格式，即html
 我觉得这优缺点就因人而异，见仁见智了。
 
 优点：
-1.可以通过函数式方法描述视图组件（好处：相同的输入会得到同样的渲染结果，不会有副作用；组件不会被实例化，整体渲染性能得到提升）
-2.集成虚拟DOM（性能好）
-3.单向数据流（好处是更容易追踪数据变化排查问题
-4.一切都是component：代码更加模块化，重用代码更容易，可维护性高
-5.大量拥抱 es6 新特性
-6.jsx
+
+- 可以通过函数式方法描述视图组件（好处：相同的输入会得到同样的渲染结果，不会有副作用；组件不会被实例化，整体渲染性能得到提升）
+- 集成虚拟DOM（性能好）
+- 单向数据流（好处是更容易追踪数据变化排查问题
+- 一切都是component：代码更加模块化，重用代码更容易，可维护性高
+- 大量拥抱 es6 新特性
+- jsx
 
 缺点：
-1.jsx的一个问题是，渲染函数常常包含大量逻辑，最终看着更像是程序片段，而不是视觉呈现。后期如果发生需求更改，维护起来工作量将是巨大的
-2.大而全，上手有难度
+
+- jsx的一个问题是，渲染函数常常包含大量逻辑，最终看着更像是程序片段，而不是视觉呈现。后期如果发生需求更改，维护起来工作量将是巨大的
+- 大而全，上手有难度
 
 
 
@@ -323,8 +332,9 @@ render(){
 
 #### 无状态组件
 
-无状态组件其实本质上就是一个函数，传入props即可，没有state，也没有生命周期方法。组件本身对应的就是render方法。例子如下
-```
+无状态组件其实本质上就是一个函数，传入props即可，没有state，也没有生命周期方法。组件本身对应的就是render方法。例子如下：
+
+```javascript
 function Title({color = 'red', text = '标题'}) {
   let style = {
     'color': color
@@ -333,7 +343,6 @@ function Title({color = 'red', text = '标题'}) {
     <div style = {style}>{text}</div>
   )
 }
-
 ```
 
 无状态组件不会创建对象，故比较省内存。没有复杂的生命周期方法调用，故流程比较简单。没有state，也不会重复渲染。它本质上就是一个函数而已。
@@ -346,7 +355,7 @@ function Title({color = 'red', text = '标题'}) {
 
 - 属性代理
 
-```
+```javascript
 import React, { Component } from 'React';
 //高阶组件定义
 const HOC = (WrappedComponent) =>
@@ -369,12 +378,14 @@ export default HOC(WrappedComponent)
 
 反向继承是指返回的组件去继承之前的组件(这里都用WrappedComponent代指)
 
-	const HOC = (WrappedComponent) =>
-	  class extends WrappedComponent {
-	    render() {
-	      return super.render();
-	    }
-	  }
+```javascript
+const HOC = (WrappedComponent) =>
+  class extends WrappedComponent {
+    render() {
+      return super.render();
+    }
+  }
+```
 
 我们可以看见返回的组件确实都继承自WrappedComponent,那么所有的调用将是反向调用的(例如:super.render())，这也就是为什么叫做反向继承。
 　　
@@ -392,7 +403,7 @@ React 实现了一个“合成事件”层（synthetic event system），这个�
 
 #### react组件生命周期
 
-![](imgs/lifecycle.jpeg)
+![](lifecycle.jpeg)
 
 react组件更新过程：
 
@@ -547,12 +558,15 @@ window.history.replaceState(stateObject, title, URL)
 ### 浏览器渲染原理解析
 
 
-![Alt text](./1500207571501.png)
+![](browser.jpeg)
 
 
 1、首先渲染引擎下载HTML，解析生成DOM Tree
+
 2、遇到css标签或JS脚本标签就新起线程去下载他们，并继续构建DOM。（其中css是异步下载同步执行）浏览器引擎通过 DOM Tree 和 CSS Rule Tree 构建 Rendering Tree
+
 3、 通过 CSS Rule Tree 匹配 DOM Tree 进行定位坐标和大小，这个过程称为 Flow 或 Layout 。
+
 4、最终通过调用Native GUI 的 API 绘制网页画面的过程称为 Paint 。
 
 
@@ -577,6 +591,8 @@ window.history.replaceState(stateObject, title, URL)
 
 为了设计私有方法和变量，避免全局变量污染
 希望一个变量长期驻扎在内存中
+
+>view detail: https://segmentfault.com/a/1190000000652891
 
 ### 异步相关
 
@@ -650,9 +666,7 @@ GET（获取），POST（新增），PUT（更新），DELETE（删除）
 当从一个对象那里调取属性或方法时，如果该对象自身不存在这样的属性或方法，就会去自己关联的`prototype`对象那里寻找，如果prototype没有，就会去prototype关联的前辈prototype那里寻找，如果再没有则继续查找`Prototype.Prototype`引用的对象，依次类推，直到Prototype.….Prototype为undefined（Object的Prototype就是undefined）从而形成了所谓的“原型链”。
 
 其中foo是Function对象的实例。而Function的原型对象同时又是Object的实例。这样就构成了一条原型链。
-```
-function foo(){}
-```
+
 #### instanceof   确定原型和实例之间的关系
 
 用来判断某个构造函数的prototype属性是否存在另外一个要检测对象的原型链上
@@ -686,6 +700,7 @@ const声明的变量与let声明的变量类似，它们的不同之处在于，
 
 const只是保证变量名指向的地址不变，并不保证该地址的数据不变。const可以在多个模块间共享
 let 暂时性死区的原因：var 会变量提升，let 不会。
+
 #### 箭头函数
 
 箭头函数不属于普通的 function，所以没有独立的上下文。箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
@@ -736,6 +751,7 @@ for(let k in obj){
 ```
 
 `for...of`可以用来遍历数组，类数组对象，字符串，Map和Set，`for...in`用来遍历对象，arguments本身不是可迭代对象，不能用for...of遍历
+
 ### 跨域
 
 常用的几种跨域方案，并对比其优劣势（p6）
@@ -753,6 +769,26 @@ script、image、iframe的src都不受同源策略的影响。
 
 
 CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定`Access-Control-Allow-Credentials`字段。
+
+### 说说你对作用域链的理解
+
+作用域链的作用是保证执行环境里有权访问的变量和函数是有序的，作用域链的变量只能向上访问，变量访问到window对象即被终止，作用域链向下访问变量是不被允许的。
+
+### js继承方式及其优缺点
+
+- 原型链继承的缺点
+
+一是字面量重写原型会中断关系，使用引用类型的原型，并且子类型还无法给超类型传递参数。
+
+- 借用构造函数（类式继承）
+
+借用构造函数虽然解决了刚才两种问题，但没有原型，则复用无从谈起。所以我们需要原型链+借用构造函数的模式，这种模式称为组合继承
+
+- 组合式继承
+
+组合式继承是比较常用的一种继承方法，其背后的思路是 使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。这样，既通过在原型上定义方法实现了函数复用，又保证每个实例都有它自己的属性。
+
+>For detail：[JavaScript继承方式详解](https://segmentfault.com/a/1190000002440502)
 
 ### fetch和Ajax有什么不同
 
@@ -844,7 +880,7 @@ JS里对观察者模式的实现是通过回调来实现的，，它定义了一
 我们为什么要用观察者模式呢，主要是可以实现松散耦合的代码，什么意思？就是
 主体和订阅者之间是相互独立的，其二者可以独立运行。
 
-### es6 module和require/exports/module.exports的区别
+### ES6 module和require/exports/module.exports的区别
 
 ES6 Module 中导入模块的属性或者方法是强绑定的，包括基础类型；而 CommonJS 则是普通的值传递或者引用传递。
 
@@ -894,7 +930,7 @@ GET和POST最大的区别主要是GET请求是幂等性的，POST请求不是。
 其中Expires和cache-control属于强缓存，last-modified和etag属于协商缓存
 强缓存与协商缓存区别：强缓存不发请求到服务器，协商缓存会发请求到服务器。
 
-
+![](cache.jpeg)
 
 
 
@@ -1104,6 +1140,7 @@ web worker是运行在浏览器后台的js程序，他不影响主程序的运�
 5.Last-Modified   标记此文件在服务期端最后被修改的时间
 
 httpOnly 设置cookie是否能通过 js 去访问。在客户端是不能通过js代码去设置一个`httpOnly`类型的cookie的，这种类型的cookie只能通过服务端来设置。在发生跨域时，cookie 作为一种 credential 信息是不会被传送到服务端的。必须要进行额外设置才可以。
+
 #### 代理和反向代理
 
 正向代理： 用浏览器访问时，被残忍的block，于是你可以在国外搭建一台代理服务器，让代理帮我去请求google.com，代理把请求返回的相应结构再返回给我。
@@ -1151,6 +1188,12 @@ function loadImage(imgArr, callback) {
          }
  } count++; img.onload=function () { if(count==imgNum){ callback(); } } }//for循环结束}
 ```
+#### 说说TCP传输的三次握手四次挥手策略
+
+为了准确无误地把数据送达目标处，TCP协议采用了三次握手策略。用TCP协议把数据包送出去后，TCP不会对传送 后的情况置之不理，它一定会向对方确认是否成功送达。握手过程中使用了TCP的标志：SYN和ACK。
+
+发送端首先发送一个带SYN标志的数据包给对方。接收端收到后，回传一个带有SYN/ACK标志的数据包以示传达确认信息。 最后，发送端再回传一个带ACK标志的数据包，代表“握手”结束。 若在握手过程中某个阶段莫名中断，TCP协议会再次以相同的顺序发送相同的数据包。
+
 
 
 ### 原生DOM操作和事件相关
@@ -1166,6 +1209,7 @@ document.body - 文档的主体
 http://www.w3school.com.cn/jsref/dom_obj_all.asp
 
 - JS事件：target与currentTarget区别
+
 target在事件流的目标阶段；currentTarget在事件流的捕获，目标及冒泡阶段。只有当事件流处在目标阶段的时候，两个的指向才是一样的， 而当处于捕获和冒泡阶段的时候，target指向被单击的对象而currentTarget指向当前事件活动的对象（一般为父级）。
 
 #### 事件模型
@@ -1181,6 +1225,7 @@ target在事件流的目标阶段；currentTarget在事件流的捕获，目标�
 3.在DOM元素中直接绑定：`<div onclick = 'fn()'>`
 
 DOM事件流包括三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。首先发生的事件捕获，为截获事件提供机会。然后是实际的目标接受事件。最后一个阶段是时间冒泡阶段，可以在这个阶段对事件做出响应。
+
 #### 事件委托
 
 因为事件具有冒泡机制，因此我们可以利用冒泡的原理，把事件加到父级上，触发执行效果。这样做的好处当然就是提高性能了
@@ -1372,7 +1417,7 @@ npm设计得好
 
 ### 美团面试
 
-1.事件循环
+- 事件循环
 
 浏览器中, js引擎线程会循环从 任务队列 中读取事件并且执行, 这种运行机制称作 Event Loop (事件循环).
 
@@ -1391,7 +1436,7 @@ npm设计得好
 Promise是异步的，是指他的then()和catch()方法，Promise本身还是同步的
 Promise的任务会在当前事件循环末尾中执行，而setTimeout中的任务是在下一次事件循环执行
 
-```
+```javascript
 //12354
 setTimeout(function(){
   console.log(4)
@@ -1409,30 +1454,30 @@ console.log(3);
 
 ```
 
-2.xss和csrf
-3.事件捕获的应用
-4.jsx的优点
-5、webpack loader和plugin区别
-6.性能优化
-7.react和vue的区别
-8.vue component和指令的区别
-9.vue组件通信
-10.box-sizing
-11.jsonp缺点，为什么不能用POST
-12.vue-router的实现原理
-13.es6用了哪些新特性
-14、cookie和localStorage区别
-15、git fetch是干嘛的
-16、事件代理和冒泡，捕获
-17、304是干嘛的 具体，405 504又是干嘛的
-18、BFC
-19、其他（自我介绍，为啥离职，为啥从美团离职，git工作流，code review，单元测试）
-20、react组件生命周期
-21.伪类和伪元素的区别
-CSS 伪类：逻辑上存在但在文档树中却无须标识的“幽灵”分类
-CSS 伪元素（`:first-letter，:first-line,:after,:before`）代表了某个元素的子元素，这个子元素虽然在逻辑上存在，但却并不实际存在于文档树中。
-CSS3标准要求伪元素使用双冒号
-22.em和rem
+- xss和csrf
+- 事件捕获的应用
+- jsx的优点
+- webpack loader和plugin区别
+- 性能优化
+- react和vue的区别
+- vue component和指令的区别
+- vue组件通信
+- box-sizing
+- jsonp缺点，为什么不能用POST
+- vue-router的实现原理
+- es6用了哪些新特性
+- cookie和localStorage区别
+- git fetch是干嘛的
+- 事件代理和冒泡，捕获
+- 304是干嘛的 具体，405 504又是干嘛的
+- BFC
+- 其他（自我介绍，为啥离职，为啥从美团离职，git工作流，code review，单元测试）
+- react组件生命周期
+- 伪类和伪元素的区别
+    CSS 伪类：逻辑上存在但在文档树中却无须标识的“幽灵”分类
+    CSS 伪元素（`:first-letter，:first-line,:after,:before`）代表了某个元素的子元素，这个子元素虽然在逻辑上存在，但却并不实际存在于文档树中。
+    CSS3标准要求伪元素使用双冒号
+- em和rem
 
 ### 饿了么面试
 
@@ -1531,16 +1576,15 @@ new Animal('cat')=function(){
 ```
 
 
-### 开放性问题
 
-#### 谈谈你对组件的看法，什么样的组件才是好的组件
+### 谈谈你对组件的看法
 
 一个组件应该有以下特征：
 
-可组合（Composeable）：一个组件易于和其它组件一起使用，或者嵌套在另一个组件内部。如果一个组件内部创建了另一个组件，那么说父组件拥有（own）它创建的子组件，通过这个特性，一个复杂的 UI 可以拆分成多个简单的 UI 组件；
-可重用（Reusable）：每个组件都是具有独立功能的，它可以被使用在多个 UI 场景；
-可维护（Maintainable）：每个小的组件仅仅包含自身的逻辑，更容易被理解和维护；
-可测试（Testable）：因为每个组件都是独立的，那么对于各个组件分别测试显然要比对于整个 UI 进行测试容易的多。
+- 可组合（Composeable）：一个组件易于和其它组件一起使用，或者嵌套在另一个组件内部。如果一个组件内部创建了另一个组件，那么说父组件拥有（own）它创建的子组件，通过这个特性，一个复杂的 UI 可以拆分成多个简单的 UI 组件；
+- 可重用（Reusable）：每个组件都是具有独立功能的，它可以被使用在多个 UI 场景；
+- 可维护（Maintainable）：每个小的组件仅仅包含自身的逻辑，更容易被理解和维护；
+- 可测试（Testable）：因为每个组件都是独立的，那么对于各个组件分别测试显然要比对于整个 UI 进行测试容易的多。
 
 
 
@@ -1548,7 +1592,7 @@ new Animal('cat')=function(){
 
 #### box-sizing盒模型
 
-
+![](box-size.jpeg)
 
 box-sizing属性主要用来控制元素的盒模型的解析模式。默认值是content-box。
 
@@ -1624,7 +1668,7 @@ display: -webkit-box;
 -webkit-box-pack: center;
 ```
 
-for detail: https://github.com/hawx1993/tech-blog/issues/12
+>for detail: https://github.com/hawx1993/tech-blog/issues/12
 
 #### 实现左边定宽右边自适应效果
 
@@ -1635,6 +1679,7 @@ for detail: https://github.com/hawx1993/tech-blog/issues/12
 3.左边定宽，并且左浮动；右边设置距离左边的宽度
 
 4.左边定宽，左边设置position:absolute；右边设置距离左边的宽度
+
 #### 三列布局（中间固定两边自适应宽度）
 
 1.采用浮动布局（左边左浮动，右边右浮动，中间margin：0  宽度值）
@@ -1680,11 +1725,6 @@ for detail: https://github.com/hawx1993/tech-blog/issues/12
 
 img 可替换元素，replaced element
 
-#### css position 有哪些取值
-
-absolute、fixed、relative
-static、initial、inherit（P5）
-sticky、unset（P6）
 
 #### 动画
 
@@ -1716,3 +1756,11 @@ css3使用
 - 方案一：CSS3 vw 单位
 - 方案二：设置垂直方向的padding撑开容器
 - 方案三：利用伪元素的 margin(padding)-top 撑开容器
+
+#### position的值
+
+- absolute :生成绝对定位的元素， 相对于最近一级的 定位不是 static 的父元素来进行定位。
+- fixed （老IE不支持）生成绝对定位的元素，通常相对于浏览器窗口或 frame 进行定位。
+- relative 生成相对定位的元素，相对于其在普通流中的位置进行定位。
+- static 默认值。没有定位，元素出现在正常的流中
+- sticky 生成粘性定位的元素，容器的位置根据正常文档流计算得出
