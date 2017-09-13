@@ -754,17 +754,14 @@ for(let k in obj){
 
 ### 跨域
 
-常用的几种跨域方案，并对比其优劣势（p6）
-
 script、image、iframe的src都不受同源策略的影响。
 
-1、JSONP,回调函数+数据就是 JSON With Padding，简单、易部署。（做法：动态插入script标签，设置其src属性指向提供JSONP服务的URL地址，查询字符串中加入 callback 指定回调函数，返回的 JSON 被包裹在回调函数中以字符串的形式被返回，需将script标签插入body底部）。缺点是只支持GET，不支持POST（原因是通过地址栏传参所以只能使用GET）
-2、document.domain 跨子域 （ 例如a.qq.com嵌套一个b.qq.com的iframe ，如果a.qq.com设置document.domain为qq.com 。b.qq.com设置document.domain为qq.com， 那么他俩就能互相通信了，不受跨域限制了。 注意：只能跨子域）
-3、window.name + iframe ==> http://www.tuicool.com/articles/viMFbqV，支持跨主域。不支持POST
-4、HTML5的postMessage()方法允许来自不同源的脚本采用异步方式进行有限的通信，可以实现跨文本档、多窗口、跨域消息传递。适用于不同窗口iframe之间的跨域
-
-5、CORS（Cross Origin Resource Share）对方服务端设置响应头
-6、服务端代理
+1. JSONP,回调函数+数据就是 JSON With Padding，简单、易部署。（做法：动态插入script标签，设置其src属性指向提供JSONP服务的URL地址，查询字符串中加入 callback 指定回调函数，返回的 JSON 被包裹在回调函数中以字符串的形式被返回，需将script标签插入body底部）。缺点是只支持GET，不支持POST（原因是通过地址栏传参所以只能使用GET）
+2. document.domain 跨子域 （ 例如a.qq.com嵌套一个b.qq.com的iframe ，如果a.qq.com设置document.domain为qq.com 。b.qq.com设置document.domain为qq.com， 那么他俩就能互相通信了，不受跨域限制了。 注意：只能跨子域）
+3. window.name + iframe ==> http://www.tuicool.com/articles/viMFbqV，支持跨主域。不支持POST
+4. HTML5的postMessage()方法允许来自不同源的脚本采用异步方式进行有限的通信，可以实现跨文本档、多窗口、跨域消息传递。适用于不同窗口iframe之间的跨域
+5. CORS（Cross Origin Resource Share）对方服务端设置响应头
+6. 服务端代理
 在浏览器客户端不能跨域访问，而服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就没有跨越问题。简单地说，就是浏览器不能跨域，后台服务器可以跨域。（一种是通过http-proxy-middleware插件设置后端代理；另一种是通过使用http模块发出请求）
 
 
@@ -893,17 +890,15 @@ import必须放在文件最顶部，require不需要；import最终会被babel�
 
 ### GET,POST,PUT,Delete
 
-1.GET请求会向数据库获取信息，只是用来查询数据，不会修改，增加数据。使用URL传递参数，对所发送的数量有限制，一般在2000字符
-2.POST向服务器发送数据，会改变数据的种类等资源，就像insert操作一样，会创建新的内容，大小一般没有限制，POST安全性高，POST不会被缓存
-3.PUT请求就像数据库的update操作一样，用来修改数据内容，不会增加数据种类
-4.Delete用来删除操作
+1. GET请求会向数据库获取信息，只是用来查询数据，不会修改，增加数据。使用URL传递参数，对所发送的数量有限制，一般在2000字符
+2. POST向服务器发送数据，会改变数据的种类等资源，就像insert操作一样，会创建新的内容，大小一般没有限制，POST安全性高，POST不会被缓存
+3. PUT请求就像数据库的update操作一样，用来修改数据内容，不会增加数据种类
+4. Delete用来删除操作
 
-- GET和POST的区别
+#### GET和POST的区别
 
 1. GET使用URL或Cookie传参，而POST将数据放在BODY中，这个是因为HTTP协议用法的约定。并非它们的本身区别。
-
 2. GET方式提交的数据有长度限制，则POST的数据则可以非常大，这个是因为它们使用的操作系统和浏览器设置的不同引起的区别。也不是GET和POST本身的区别。
-
 3. POST比GET安全，因为数据在地址栏上不可见，这个说法没毛病，但依然不是GET和POST本身的区别。
 
 GET和POST最大的区别主要是GET请求是幂等性的，POST请求不是。（幂等性：对同一URL的多个请求应该返回同样的结果。）因为get请求是幂等的，在网络不好的隧道中会尝试重试。如果用get请求增数据，会有重复操作的风险，而这种重复操作可能会导致副作用
@@ -1126,18 +1121,18 @@ web worker是运行在浏览器后台的js程序，他不影响主程序的运�
 #### http报头有哪些
 
 请求头：
-1.Accept
-2.Cache-control
-3.Host
-4.User-agent
-5.Accenp-Language
+1. Accept
+2. Cache-control
+3. Host
+4. User-agent
+5. Accenp-Language
 
 响应头：
-1.Cache-Control:max-age  避免了服务端和客户端时间不一致的问题。
-2.content-type
-3.Date
-4.Expires
-5.Last-Modified   标记此文件在服务期端最后被修改的时间
+1. Cache-Control:max-age  避免了服务端和客户端时间不一致的问题。
+2. content-type
+3. Date
+4. Expires
+5. Last-Modified   标记此文件在服务期端最后被修改的时间
 
 httpOnly 设置cookie是否能通过 js 去访问。在客户端是不能通过js代码去设置一个`httpOnly`类型的cookie的，这种类型的cookie只能通过服务端来设置。在发生跨域时，cookie 作为一种 credential 信息是不会被传送到服务端的。必须要进行额外设置才可以。
 
@@ -1402,18 +1397,17 @@ cluster可以用来让Node.js充分利用多核cpu的性能
 
 #### 谈谈Nodejs优缺点
 
-优点：
-事件驱动，异步编程，占用内存少
-npm设计得好
+>优点：
 
- Node.js 缺点：
+1. 事件驱动，异步编程，占用内存少
+2. npm设计得好
 
-1.Debug 很困难。没有 stack trace，出了问题很难查找问题的原因；
+>缺点：
 
-2.如果设计不好，很容易让代码充满 callback，代码不优雅；
-
-3.可靠性低；
-4.单进程，单线程，只支持单核CPU，不能充分的利用多核CPU服务器。
+1. Debug 很困难。没有 stack trace，出了问题很难查找问题的原因；
+2. 如果设计不好，很容易让代码充满 callback，代码不优雅；
+3. 可靠性低；
+4. 单进程，单线程，只支持单核CPU，不能充分的利用多核CPU服务器。
 
 ### 美团面试
 
@@ -1421,7 +1415,6 @@ npm设计得好
 
 浏览器中, js引擎线程会循环从 任务队列 中读取事件并且执行, 这种运行机制称作 Event Loop (事件循环).
 
-- 事件循环 setTimeout与Promise
 
 每个浏览器环境，至多有一个event loop。
 一个event loop可以有1个或多个task queue(任务队列)
@@ -1437,7 +1430,7 @@ Promise是异步的，是指他的then()和catch()方法，Promise本身还是�
 Promise的任务会在当前事件循环末尾中执行，而setTimeout中的任务是在下一次事件循环执行
 
 ```javascript
-//12354
+//依次输出 12354
 setTimeout(function(){
   console.log(4)
   },0);
@@ -1682,8 +1675,8 @@ display: -webkit-box;
 
 #### 三列布局（中间固定两边自适应宽度）
 
-1.采用浮动布局（左边左浮动，右边右浮动，中间margin：0  宽度值）
-2.绝对定位方式（左右绝对定位，左边left0右边right0，中间上同）
+1. 采用浮动布局（左边左浮动，右边右浮动，中间margin：0  宽度值）
+2. 绝对定位方式（左右绝对定位，左边left0右边right0，中间上同）
 
 #### BFC（Block Formatting Contexts）块级格式化上下文
 
@@ -1764,3 +1757,12 @@ css3使用
 - relative 生成相对定位的元素，相对于其在普通流中的位置进行定位。
 - static 默认值。没有定位，元素出现在正常的流中
 - sticky 生成粘性定位的元素，容器的位置根据正常文档流计算得出
+
+
+## Donate
+
+ if you enjoy my works please consider making a donation. 
+
+<img src="./alipay.jpeg" width = "350" height = "500" alt="图片名称" align=left />
+
+<img src="./wechat.jpeg" width = "350" height = "500" alt="图片名称" align=right />
