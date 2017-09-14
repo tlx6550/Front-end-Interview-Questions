@@ -1,4 +1,4 @@
-## 最新前端面试题
+## Interview Quesetions
 
 github地址：https://github.com/hawx1993/Front-end-Interview-questions ， 欢迎star，仅限个人学习和交流，禁止转载
 
