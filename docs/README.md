@@ -5,16 +5,14 @@
 ### 职业规划
 
 
-首先应该是一个优秀的程序员
-其次是努力使自己成为某一领域的技术专家
-通过技术更好的服务于团队和业务
-提高沟通能力，团队协作，发现问题，解决问题，总结问题能力
-写写博客，输出就是最好的学习
-工作之外参与开源项目，会很有成就感和收货
-提升个人前端的工作效率和工作质量
-关注前端前言技术和发展方向，通过新技术服务团队和业务
-分享前端知识/开源项目
-一专多长
+1. 首先应该是一个优秀的程序员
+2. 其次是努力使自己成为某一领域的技术专家
+3. 通过技术更好的服务于团队和业务
+4. 提高沟通能力，团队协作，发现问题，解决问题，总结问题能力
+5. 写写博客，输出就是最好的学习
+6. 提升个人前端的工作效率和工作质量
+7. 关注前端前言技术和发展方向，通过新技术服务团队和业务
+8. 一专多长
 
 想成为优秀的前端工程师，首先在专业技能领域必不可少，其次在团队贡献、业务思索、价值判断上也有要求。这三方面能决定你的专业技能能够为公司产出多大的价值。
 
@@ -750,7 +748,7 @@ for(let k in obj){
 }
 ```
 
-`for...of`可以用来遍历数组，类数组对象，字符串，Map和Set，`for...in`用来遍历对象，arguments本身不是可迭代对象，不能用for...of遍历
+`for...of`可以用来遍历数组，类数组对象，argument，字符串，Map和Set，`for...in`用来遍历对象
 
 ### 跨域
 
@@ -1714,10 +1712,6 @@ display: -webkit-box;
 2.给父元素设置 overflow:auto属性
 3.after伪元素
 
-#### img属于什么类型的元素？
-
-img 可替换元素，replaced element
-
 
 #### 动画
 
@@ -1761,8 +1755,10 @@ css3使用
 
 ## Donate
 
- if you enjoy my works please consider making a donation. 
+ if you enjoy my works please consider making a donation,help me to write better articles.
 
 <img src="./alipay.jpeg" width = "350" height = "500" alt="图片名称" align=left />
 
 <img src="./wechat.jpeg" width = "350" height = "500" alt="图片名称" align=right />
+
+<br>
