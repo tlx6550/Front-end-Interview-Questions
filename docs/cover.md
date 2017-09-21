@@ -11,3 +11,6 @@
 
 [GitHub](https://github.com/hawx1993/Front-end-Interview-Questions)
 [Get Started](#interview-quesetions)
+<div id="code-sponsor-widget"></div>
+
+<script type="text/javascript" src="https://app.codesponsor.io/scripts/MjRPKYVon07LFLm175HdsA?theme=light"></script>

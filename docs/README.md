@@ -2,6 +2,12 @@
 
 github地址：https://github.com/hawx1993/Front-end-Interview-questions ， 欢迎star，仅限个人学习和交流，禁止转载
 
+如果你觉得本文对你有帮助，可以点击下方赞助商广告，give me a cup of coffee.thx
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/gWs9P5H4YpntyAR6x1qG5EkX/hawx1993/Front-end-Interview-Questions'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/gWs9P5H4YpntyAR6x1qG5EkX/hawx1993/Front-end-Interview-Questions.svg' />
+</a>
+
 ### 职业规划
 
 
