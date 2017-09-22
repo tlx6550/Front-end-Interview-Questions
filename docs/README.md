@@ -1,8 +1,12 @@
+
+
 ## Interview Quesetions
 
-github地址：https://github.com/hawx1993/Front-end-Interview-questions ， 欢迎star，仅限个人学习和交流，禁止转载
 
- 
+如果你觉得文章对你很有帮助，可以点击下面赞助商的链接（free）👇，以支持我创作更优秀的文章~  欢迎star，仅限个人学习和交流，禁止转载
+
+ <div id="code-sponsor-widget"></div>
+
 
 ### 职业规划
 
@@ -1763,4 +1767,4 @@ css3使用
 
 <img src="./wechat.jpeg" width = "350" height = "500" alt="图片名称" align=right />
 
-<br>
+<br />

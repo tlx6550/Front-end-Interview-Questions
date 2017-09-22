@@ -1,7 +1,4 @@
-## Links
-
- 
-
+## Links   
 
 >click to visit : http://hawx1993.github.io/Front-end-Interview-Questions/
 
