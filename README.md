@@ -10,3 +10,4 @@
 4. Commit your changes: `git commit -am 'Add some feature'`
 5. Push to the branch: `git push origin my-new-feature`
 6. Submit a pull request :D
+另https://segmentfault.com/a/1190000011091907
